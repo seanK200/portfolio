@@ -1,8 +1,15 @@
 import React from 'react';
-import './App.css';
+import AppRouter from './routers';
+import { ThemeProvider } from 'styled-components';
+import themes from './styles/theme';
+import { useSettings } from './contexts/SettingsProvider';
 
-function App() {
-  return <div className="App">Youngwoo Kim</div>;
+export default function App() {
+  const { themeMode } = useSettings();
+
+  return (
+    <ThemeProvider theme={themes[themeMode]}>
+      <AppRouter />
+    </ThemeProvider>
+  );
 }
-
-export default App;
