@@ -40,7 +40,7 @@ const lightTheme: ThemeInterface = {
       pressed: '#FF4D62',
       disabled: '#FFD4DF',
     },
-    background: '#FCFBFF',
+    background: '#FFFFFF',
   },
   textColor: {
     default: '#353535',

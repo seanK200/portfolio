@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import ThemedAsset from '../utilities/ThemedAsset';
@@ -23,12 +23,24 @@ const headerTexts: MultiLangTexts = {
   },
 };
 
-const Header = (): JSX.Element => {
+type PropTypes = {
+  setHeaderHeight: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
   const t = useText(headerTexts);
   const activeClassName = 'active';
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      const { height } = headerRef.current.getBoundingClientRect();
+      setHeaderHeight(height);
+    }
+  }, []);
 
   return (
-    <SHeader>
+    <SHeader ref={headerRef}>
       <Link to="/">
         <ThemedAsset
           src="logo.png"

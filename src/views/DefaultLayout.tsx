@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 const DefaultLayout = () => {
+  const [headerHeight, setHeaderHeight] = useState<number>(0); // px
+  const [footerHeight, setFooterHeight] = useState<number>(0); // px
+
   return (
     <React.Fragment>
-      <Header />
-      <Main>
+      <Header setHeaderHeight={setHeaderHeight} />
+      <Main
+        style={{
+          minHeight: `calc(100vh - ${headerHeight + footerHeight}px)`,
+        }}
+      >
         <Outlet />
       </Main>
-      <Footer />
+      <Footer setFooterHeight={setFooterHeight} />
     </React.Fragment>
   );
 };
