@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import AppRouter from './routers';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import themes from './styles/theme';
 import { useSettings } from './contexts/SettingsProvider';
 
