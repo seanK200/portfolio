@@ -1,0 +1,4 @@
+{
+  "*.ts": "npx eslint --fix --max-warnings 0",
+  "*.tsx": "npx eslint --fix --max-warnings 0"
+}

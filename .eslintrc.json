@@ -28,6 +28,9 @@
         "import/no-named-as-default-member": 0
     },
     "settings": {
+        "react": {
+            "version": "detect"
+        },
         "import/parsers": {
             "@typescript-eslint/parser": [
                 ".ts",
