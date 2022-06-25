@@ -1,3 +1,5 @@
+import { ThemeName } from '../contexts/SettingsProvider';
+
 type ThemeColor = {
   default: string;
   pressed?: string;
@@ -5,7 +7,7 @@ type ThemeColor = {
   background?: string;
 };
 
-interface ThemeInterface {
+export interface ThemeInterface {
   color: {
     primary: ThemeColor;
     secondary: ThemeColor;
@@ -100,7 +102,7 @@ const darkTheme: ThemeInterface = {
   },
 };
 
-const themes: { [key: string]: ThemeInterface } = {
+const themes: Record<ThemeName, ThemeInterface> = {
   light: lightTheme,
   dark: darkTheme,
 };

@@ -6,15 +6,15 @@ type PropTypes = {
 };
 
 // States
-type ThemeModeType = 'light' | 'dark';
-type LanguageType = 'ko-KR' | 'en-US';
+export type ThemeName = 'light' | 'dark';
+export type LanguageName = 'ko' | 'en';
 
 // Context value
 type SettingValues = {
-  themeMode: ThemeModeType;
-  setThemeMode: React.Dispatch<React.SetStateAction<ThemeModeType>>;
-  language: LanguageType;
-  setLanguage: React.Dispatch<React.SetStateAction<LanguageType>>;
+  themeMode: ThemeName;
+  setThemeMode: React.Dispatch<React.SetStateAction<ThemeName>>;
+  language: LanguageName;
+  setLanguage: React.Dispatch<React.SetStateAction<LanguageName>>;
 };
 
 const SettingsContext = React.createContext<SettingValues | null>(null);
@@ -27,8 +27,8 @@ export const useSettings = () => {
 
 const SettingsProvider = (props: PropTypes) => {
   const { children } = props;
-  const [themeMode, setThemeMode] = useState<ThemeModeType>('light');
-  const [language, setLanguage] = useState<LanguageType>('en-US');
+  const [themeMode, setThemeMode] = useState<ThemeName>('light');
+  const [language, setLanguage] = useState<LanguageName>('en');
 
   const value: SettingValues = {
     themeMode,
