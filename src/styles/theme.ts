@@ -13,12 +13,13 @@ export interface ThemeInterface {
     secondary: ThemeColor;
     dangerous: ThemeColor;
     background: string;
+    hover: string;
   };
   textColor: {
     default: string;
-    primary?: ThemeColor;
-    secondary?: ThemeColor;
-    dangerous?: ThemeColor;
+    primary: ThemeColor;
+    secondary: ThemeColor;
+    dangerous: ThemeColor;
   };
 }
 
@@ -27,7 +28,7 @@ const lightTheme: ThemeInterface = {
     primary: {
       default: '#6117FF',
       pressed: '#7F43FF',
-      disabled: '#E5D8FF',
+      disabled: '#E7E4ED',
       background: '#F4EFFF',
     },
     secondary: {
@@ -41,6 +42,7 @@ const lightTheme: ThemeInterface = {
       disabled: '#FFD4DF',
     },
     background: '#FFFFFF',
+    hover: '#E7DBFF',
   },
   textColor: {
     default: '#353535',
@@ -65,7 +67,7 @@ const lightTheme: ThemeInterface = {
 const darkTheme: ThemeInterface = {
   color: {
     primary: {
-      default: '#6117FF',
+      default: '#9462FF',
       pressed: '#7A3DFD',
       disabled: '#3E3059',
       background: '#373144',
@@ -81,6 +83,7 @@ const darkTheme: ThemeInterface = {
       disabled: '#4C193C',
     },
     background: '#0A021C',
+    hover: '#463E56',
   },
   textColor: {
     default: '#F9EFF4',

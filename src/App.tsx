@@ -5,16 +5,18 @@ import themes from './styles/theme';
 import { useSettings } from './contexts/SettingsProvider';
 
 export default function App() {
-  const { themeMode } = useSettings();
+  const { theme } = useSettings();
 
+  // Set body background color according to theme
   useEffect(() => {
-    if (themeMode) {
-      document.body.style.backgroundColor = themes[themeMode].color.background;
+    if (theme) {
+      document.body.style.backgroundColor = themes[theme].color.background;
+      document.body.style.color = themes[theme].textColor.default;
     }
-  }, [themeMode]);
+  }, [theme]);
 
   return (
-    <ThemeProvider theme={themes[themeMode]}>
+    <ThemeProvider theme={themes[theme]}>
       <AppRouter />
     </ThemeProvider>
   );
