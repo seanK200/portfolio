@@ -1,37 +1,20 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import ThemedAsset from '../utilities/ThemedAsset';
-import useText, { MultiLangTexts } from '../../hooks/useText';
-
-const headerTexts: MultiLangTexts = {
-  'nav/home': {
-    ko: '홈',
-    en: 'Home',
-  },
-  'nav/portfolio': {
-    ko: '포트폴리오',
-    en: 'Portfolio',
-  },
-  'nav/blog': {
-    ko: '블로그',
-    en: 'Blog',
-  },
-  'nav/about': {
-    ko: '연락하기',
-    en: 'About me',
-  },
-};
+import useText from '../../hooks/useText';
+import navTexts from '../../texts/navTexts';
+import Asset from '../utilities/Asset';
 
 type PropTypes = {
   setHeaderHeight: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
-  const t = useText(headerTexts);
+  const t = useText(navTexts);
   const activeClassName = 'active';
   const headerRef = useRef<HTMLElement>(null);
 
+  // Report header height to parent
   useEffect(() => {
     if (headerRef.current) {
       const { height } = headerRef.current.getBoundingClientRect();
@@ -42,12 +25,12 @@ const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
   return (
     <SHeader ref={headerRef}>
       <Link to="/">
-        <ThemedAsset
+        <Asset
           src="logo.png"
-          alt="1"
           width="20px"
           height="25px"
-          hoverable={true}
+          spriteX={1}
+          spriteY={2}
         />
       </Link>
       <Navigation>
@@ -55,25 +38,25 @@ const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
           to="/"
           className={({ isActive }) => (isActive ? activeClassName : undefined)}
         >
-          {t('nav/home')}
+          {t('home')}
         </NavLink>
         <NavLink
           to="/portfolio"
           className={({ isActive }) => (isActive ? activeClassName : undefined)}
         >
-          {t('nav/portfolio')}
+          {t('portfolio')}
         </NavLink>
         <NavLink
           to="/blog"
           className={({ isActive }) => (isActive ? activeClassName : undefined)}
         >
-          {t('nav/blog')}
+          {t('blog')}
         </NavLink>
         <NavLink
           to="/about"
           className={({ isActive }) => (isActive ? activeClassName : undefined)}
         >
-          {t('nav/about')}
+          {t('about')}
         </NavLink>
       </Navigation>
     </SHeader>
