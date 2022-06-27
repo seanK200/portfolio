@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
+import { MultiLangText } from '../hooks/useText';
 
 // Props
 type PropTypes = {
@@ -22,6 +23,8 @@ type SettingValues = {
   setHeaderHeight: React.Dispatch<React.SetStateAction<number>>;
   scrollY: number;
   isScrollingDown: boolean;
+  documentTitle: MultiLangText[];
+  setDocumentTitle: React.Dispatch<React.SetStateAction<MultiLangText[]>>;
 };
 
 const SettingsContext = React.createContext<SettingValues | null>(null);
@@ -43,6 +46,10 @@ const SettingsProvider = ({ children }: PropTypes) => {
 
   const [scrollY, setScrollY] = useState<number>(0);
   const [isScrollingDown, setIsScrollingDown] = useState<boolean>(false);
+
+  const [documentTitle, setDocumentTitle] = useState<MultiLangText[]>([
+    { ko: '', en: '' },
+  ]);
 
   // Detect OS preferred color scheme (light/dark mode)
   const getPreferredColorScheme = () => {
@@ -95,6 +102,8 @@ const SettingsProvider = ({ children }: PropTypes) => {
     setHeaderHeight,
     scrollY,
     isScrollingDown,
+    documentTitle,
+    setDocumentTitle,
   };
   return (
     <SettingsContext.Provider value={value}>

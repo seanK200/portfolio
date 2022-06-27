@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import themes from './styles/theme';
 import { useSettings } from './contexts/SettingsProvider';
 import { useLocation } from 'react-router-dom';
+import DocumentTitle from './components/utilities/DocumentTitle';
 
 export default function App() {
   const { theme } = useSettings();
@@ -32,6 +33,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={themes[theme]}>
+      <DocumentTitle />
       <AppRouter />
     </ThemeProvider>
   );

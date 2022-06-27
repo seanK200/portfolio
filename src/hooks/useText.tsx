@@ -8,7 +8,11 @@ type GetTextOptions = {
   lang?: LanguageName | null;
 };
 
-const useText = (texts: MultiLangTexts, fallback: LanguageName = 'ko') => {
+const useText = (
+  texts: MultiLangTexts,
+  defaultString = '',
+  fallback: LanguageName = 'ko'
+) => {
   const { language } = useSettings();
 
   const getText = (key: keyof MultiLangTexts, options: GetTextOptions = {}) => {
@@ -40,6 +44,9 @@ const useText = (texts: MultiLangTexts, fallback: LanguageName = 'ko') => {
 
       return text;
     }
+
+    if (defaultString !== '') return defaultString;
+
     throw new Error(`Key '${key}' not found in text.`);
   };
 
