@@ -1,3 +1,7 @@
-export const mobile = '480px';
-export const tablet = '1024px';
-export const desktop = '1280px';
+const breakpoints = {
+  mobile: 480,
+  tablet: 1024,
+  desktop: 1280,
+};
+
+export default breakpoints;

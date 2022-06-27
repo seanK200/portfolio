@@ -3,6 +3,11 @@ import { ThemeName } from './SettingsProvider';
 import { MultiLangText } from '../hooks/useText';
 import _ from 'lodash';
 
+type WindowSizeType = {
+  width: number;
+  height: number;
+};
+
 type GlobalValues = {
   preferredTheme: ThemeName;
   headerHeight: number;
@@ -11,6 +16,7 @@ type GlobalValues = {
   isScrollingDown: boolean;
   documentTitle: MultiLangText[];
   setDocumentTitle: React.Dispatch<React.SetStateAction<MultiLangText[]>>;
+  windowSize: WindowSizeType;
 };
 
 const GlobalContext = React.createContext<GlobalValues | null>(null);
@@ -29,6 +35,10 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
   const [documentTitle, setDocumentTitle] = useState<MultiLangText[]>([
     { ko: '', en: '' },
   ]);
+  const [windowSize, setWindowSize] = useState<WindowSizeType>({
+    width: 0,
+    height: 0,
+  });
 
   // Detect OS preferred color scheme (light/dark mode)
   const getPreferredColorScheme = () => {
@@ -48,6 +58,13 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
     });
   }, 500);
 
+  const throttledWindowResizeHandler = _.throttle(() => {
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }, 500);
+
   // componentDidMount
   useEffect(() => {
     // Detect changes in OS preferred color scheme (light/dark mode)
@@ -61,6 +78,9 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
     // Scroll events
     setScrollY(window.scrollY);
     window.addEventListener('scroll', throttledScrollHandler);
+
+    // window resize events
+    window.addEventListener('resize', throttledWindowResizeHandler);
   }, []);
 
   const value: GlobalValues = {
@@ -71,6 +91,7 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
     isScrollingDown,
     documentTitle,
     setDocumentTitle,
+    windowSize,
   };
 
   return (
