@@ -23,7 +23,7 @@ const DefaultLayout = () => {
 const Main = styled.main`
   margin: auto;
   width: 100%;
-  max-width: min(1120px, 100vh);
+  max-width: min(1120px, 100vw);
   min-height: 100vh;
   padding: 0 48px;
   overflow-x: hidden;

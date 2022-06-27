@@ -1,6 +1,6 @@
 const breakpoints = {
   mobile: 480,
-  tablet: 1024,
+  tablet: 820,
   desktop: 1280,
 };
 

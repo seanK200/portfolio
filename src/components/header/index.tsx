@@ -155,6 +155,14 @@ const SHeader = styled.header<{
   @media screen and (max-width: ${breakpoints.mobile}px) {
     padding: 24px 36px;
   }
+  box-shadow: 2px 2px 4px
+    rgba(
+      0,
+      0,
+      0,
+      ${({ isScrollingDown }) =>
+        window.scrollY < 20 || isScrollingDown ? '0' : '0.25'}
+    );
 `;
 
 const Navigation = styled.nav<{ headerHeight: number; isNavOpen: boolean }>`

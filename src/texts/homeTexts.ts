@@ -11,7 +11,7 @@ const homeTexts: MultiLangTexts = {
   },
   greeting3: {
     ko: '풀스택 웹 개발자',
-    en: 'full-stack web developer,',
+    en: 'full-stack web developer, ',
   },
   greeting4: {
     ko: '김영우',
@@ -22,12 +22,12 @@ const homeTexts: MultiLangTexts = {
     en: '.',
   },
   introduction1: {
-    ko: '개인, 기업 소유의 웹 서비스를',
-    en: 'I have 3 years of experience in',
+    ko: '개인, 기업 소유의 웹 서비스를 ',
+    en: 'I have 3 years of experience in ',
   },
   introduction2: {
-    ko: '개발, 배포 및 관리한 3년 간의 실무 경험이 있는',
-    en: 'developing, deploying and managing web services for',
+    ko: '개발, 배포 및 관리한 3년 간의 실무 경험이 있는 ',
+    en: 'developing, deploying and managing web services for ',
   },
   introduction3: {
     ko: '개발자입니다.',

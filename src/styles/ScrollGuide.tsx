@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Asset from '../components/utilities/Asset';
+import breakpoints from './breakpoints';
 
 const ScrollGuide = ({ children }: { children: React.ReactNode }) => {
   const handleClick: React.MouseEventHandler = () => {
@@ -43,6 +44,10 @@ const SScrollGuide = styled.div`
     margin-top: 12px;
     position: relative;
     animation: bounce 1.875s ease-in-out 0s infinite alternate;
+  }
+
+  @media screen and (max-width: ${breakpoints.tablet}px) {
+    bottom: 64px;
   }
 
   @keyframes bounce {

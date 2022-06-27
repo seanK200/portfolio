@@ -52,12 +52,10 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
 
   const throttledScrollHandler = _.throttle(() => {
     setScrollY((prevScrollY) => {
-      const newScrollY = window.scrollY;
+      const newScrollY = window.scrollY >= 0 ? window.scrollY : 0;
 
       // Handle negative scrolling (especially on mobile)
-      setIsScrollingDown(
-        prevScrollY >= 0 ? newScrollY > prevScrollY : newScrollY > 0
-      );
+      setIsScrollingDown(newScrollY > prevScrollY);
 
       return newScrollY;
     });
@@ -85,6 +83,10 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
     window.addEventListener('scroll', throttledScrollHandler);
 
     // window resize events
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
     window.addEventListener('resize', throttledWindowResizeHandler);
   }, []);
 
