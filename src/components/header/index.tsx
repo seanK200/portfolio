@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSettings } from '../../contexts/SettingsProvider';
 import useText from '../../hooks/useText';
 import navTexts from '../../texts/navTexts';
 import Asset from '../utilities/Asset';
@@ -10,6 +11,7 @@ type PropTypes = {
 };
 
 const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
+  const { headerHeight, isScrollingDown } = useSettings();
   const t = useText(navTexts);
   const activeClassName = 'active';
   const headerRef = useRef<HTMLElement>(null);
@@ -23,7 +25,11 @@ const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
   }, []);
 
   return (
-    <SHeader ref={headerRef}>
+    <SHeader
+      ref={headerRef}
+      headerHeight={headerHeight}
+      isScrollingDown={isScrollingDown}
+    >
       <Link to="/">
         <Asset
           src="logo.png"
@@ -63,13 +69,18 @@ const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
   );
 };
 
-const SHeader = styled.header`
+const SHeader = styled.header<{
+  headerHeight: number;
+  isScrollingDown: boolean;
+}>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 24px 48px;
   position: fixed;
-  top: 0;
+  transition: top 0.5s ease-out;
+  top: ${({ headerHeight, isScrollingDown }) =>
+    isScrollingDown ? `-${headerHeight}px` : 0};
   left: 0;
   right: 0;
   background-color: ${({ theme }) => theme.color.background};
