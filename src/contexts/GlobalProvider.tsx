@@ -53,7 +53,12 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
   const throttledScrollHandler = _.throttle(() => {
     setScrollY((prevScrollY) => {
       const newScrollY = window.scrollY;
-      setIsScrollingDown(newScrollY > prevScrollY);
+
+      // Handle negative scrolling (especially on mobile)
+      setIsScrollingDown(
+        prevScrollY >= 0 ? newScrollY > prevScrollY : newScrollY > 0
+      );
+
       return newScrollY;
     });
   }, 500);
