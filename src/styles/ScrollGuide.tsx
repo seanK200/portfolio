@@ -1,12 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Asset from '../components/utilities/Asset';
 
 const ScrollGuide = ({ children }: { children: React.ReactNode }) => {
-  const navigate = useNavigate();
   const handleClick: React.MouseEventHandler = () => {
-    navigate('#portfolio');
+    const y = window.scrollY;
+    const h = window.innerHeight;
+
+    window.scrollBy({
+      top: h - (y % h),
+      behavior: 'smooth',
+    });
   };
 
   return (
