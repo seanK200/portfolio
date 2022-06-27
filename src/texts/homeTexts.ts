@@ -37,6 +37,10 @@ const homeTexts: MultiLangTexts = {
     ko: '이력서 다운로드',
     en: 'Download resume',
   },
+  scrollGuide1: {
+    ko: '제 포트폴리오를 보려면 스크롤하세요',
+    en: 'Scroll to take a look at my portfolio',
+  },
 };
 
 export default homeTexts;

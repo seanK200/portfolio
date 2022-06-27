@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const FullSection = styled.section<{ headerHeight?: number }>`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

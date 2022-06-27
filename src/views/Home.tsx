@@ -6,6 +6,7 @@ import { useSettings } from '../contexts/SettingsProvider';
 import useText from '../hooks/useText';
 import ButtonWithIcon from '../styles/ButtonWithIcon';
 import SHighlight from '../styles/Highlight';
+import ScrollGuide from '../styles/ScrollGuide';
 import homeTexts from '../texts/homeTexts';
 
 const MY_GITHUB_URL = 'https://github.com/seanK200';
@@ -96,8 +97,9 @@ const HomeView = (): JSX.Element => {
             </MemojiContainer>
           </div>
         </div>
+        <ScrollGuide>{t('scrollGuide1')}</ScrollGuide>
       </Introduction>
-      <FullSection>Portfolio Overview</FullSection>
+      <FullSection id="portfolio">Portfolio Overview</FullSection>
     </React.Fragment>
   );
 };

@@ -6,16 +6,12 @@ import styled from 'styled-components';
 import { useSettings } from '../contexts/SettingsProvider';
 
 const DefaultLayout = () => {
-  const { headerHeight, setHeaderHeight } = useSettings();
+  const { setHeaderHeight } = useSettings();
 
   return (
     <React.Fragment>
       <Header setHeaderHeight={setHeaderHeight} />
-      <Main
-        style={{
-          minHeight: `calc(100vh - ${Math.ceil(headerHeight)}px)`,
-        }}
-      >
+      <Main>
         <Outlet />
       </Main>
       <Footer />
@@ -27,6 +23,7 @@ const Main = styled.main`
   margin: auto;
   width: 100%;
   max-width: 1120px;
+  min-height: 100vh;
   padding: 0 48px;
 `;
 

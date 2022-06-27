@@ -12,6 +12,8 @@ export type AssetPropTypes = {
   offsetY?: number; // choose one of the asssets (y-axis, 0: top  --> bottom)
   themed?: boolean;
   hoverable?: boolean;
+  hover?: boolean; // emulate a hovered state even when it is not hovered
+  onClick?: React.MouseEventHandler<HTMLSpanElement>;
 };
 
 type StyledPropTypes = {
@@ -31,6 +33,7 @@ export const defaultAssetProps = {
   offsetY: 0,
   themed: true,
   hoverable: false,
+  hover: false,
 };
 
 const Asset = (props: AssetPropTypes) => {
@@ -46,9 +49,19 @@ const Asset = (props: AssetPropTypes) => {
     offsetY = defaultAssetProps.offsetY,
     themed = defaultAssetProps.themed,
     hoverable = defaultAssetProps.hoverable,
+    hover = defaultAssetProps.hover,
+    onClick: handleClick,
   } = props;
 
   const useDarkTheme = themed && spriteY > 1 && theme === 'dark';
+
+  const getClassName = () => {
+    let className = 'asset__span';
+
+    if (hover) className += ' ' + 'asset__span-hover';
+
+    return className;
+  };
 
   return (
     <SAsset
@@ -61,11 +74,14 @@ const Asset = (props: AssetPropTypes) => {
       })`}
       scale={`${spriteX * 100}%`}
       hoverable={hoverable}
+      className={getClassName()}
+      onClick={handleClick}
     ></SAsset>
   );
 };
 
 const SAsset = styled.span<StyledPropTypes>`
+  flex-shrink: 0;
   display: block;
   background: ${({ url, offsetX, offsetY }) =>
     `url(${url}) ${offsetX} ${offsetY}`};
@@ -75,6 +91,7 @@ const SAsset = styled.span<StyledPropTypes>`
   height: ${({ height }) => height};
   cursor: ${({ hoverable }) => (hoverable ? 'pointer' : 'auto')};
 
+  &.asset__span-hover,
   &:hover {
     background-position-x: ${({ hoverable, offsetX, width }) =>
       hoverable ? `calc(${offsetX} - ${width})` : offsetX};

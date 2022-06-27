@@ -73,17 +73,18 @@ const SHeader = styled.header<{
   headerHeight: number;
   isScrollingDown: boolean;
 }>`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 48px;
   position: fixed;
-  transition: top 0.5s ease-out;
   top: ${({ headerHeight, isScrollingDown }) =>
     isScrollingDown ? `-${headerHeight}px` : 0};
   left: 0;
   right: 0;
+  z-index: 1;
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: ${({ theme }) => theme.color.background};
+  transition: top 0.5s ease-out;
 `;
 
 const Navigation = styled.nav`
