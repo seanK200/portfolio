@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { useSettings } from '../../contexts/SettingsProvider';
 import titleTexts from '../../texts/titleTexts';
 import useText, { MultiLangText } from '../../hooks/useText';
 import { Helmet } from 'react-helmet';
+import { useGlobals } from '../../contexts/GlobalProvider';
 
 const DocumentTitle = ({ title }: { title?: MultiLangText }) => {
-  const { documentTitle, setDocumentTitle } = useSettings();
+  const { documentTitle, setDocumentTitle } = useGlobals();
   const t = useText({
     ...titleTexts,
     documentTitle: documentTitle[documentTitle.length - 1],

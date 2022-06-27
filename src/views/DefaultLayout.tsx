@@ -3,10 +3,10 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
-import { useSettings } from '../contexts/SettingsProvider';
+import { useGlobals } from '../contexts/GlobalProvider';
 
 const DefaultLayout = () => {
-  const { setHeaderHeight } = useSettings();
+  const { setHeaderHeight } = useGlobals();
 
   return (
     <React.Fragment>

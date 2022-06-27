@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { useSettings } from '../../contexts/SettingsProvider';
+import { useGlobals } from '../../contexts/GlobalProvider';
 import useText from '../../hooks/useText';
 import navTexts from '../../texts/navTexts';
 import Asset from '../utilities/Asset';
@@ -11,7 +11,7 @@ type PropTypes = {
 };
 
 const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
-  const { headerHeight, isScrollingDown } = useSettings();
+  const { headerHeight, isScrollingDown } = useGlobals();
   const t = useText(navTexts);
   const activeClassName = 'active';
   const headerRef = useRef<HTMLElement>(null);
