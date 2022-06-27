@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
 import { useGlobals } from './GlobalProvider';
 
 // Props
@@ -32,11 +33,20 @@ const SettingsProvider = ({ children }: PropTypes) => {
   const { preferredTheme } = useGlobals();
 
   // Themes
-  const [theme, setTheme] = useState<ThemeName>('light');
-  const [usePreferredTheme, setUsePreferredTheme] = useState<boolean>(true);
+  const [theme, setTheme] = useLocalStorage<ThemeName>(
+    'settings-theme',
+    'light'
+  );
+  const [usePreferredTheme, setUsePreferredTheme] = useLocalStorage<boolean>(
+    'settings-use-preferred-theme',
+    true
+  );
 
   // Language
-  const [language, setLanguage] = useState<LanguageName>('en');
+  const [language, setLanguage] = useLocalStorage<LanguageName>(
+    'settings-language',
+    'en'
+  );
 
   // Set the theme to OS preferred color scheme on change
   useEffect(() => {
