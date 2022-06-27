@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import Button from './Button';
 
 const ButtonWithIcon = styled(Button)`
-  & img {
-    margin-right: 8px;
+  & img,
+  & span {
+    margin-right: 10px;
   }
 `;
 

@@ -68,6 +68,11 @@ const SHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 24px 48px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: ${({ theme }) => theme.color.background};
 `;
 
 const Navigation = styled.nav`

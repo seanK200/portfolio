@@ -26,7 +26,8 @@ const DefaultLayout = () => {
 const Main = styled.main`
   margin: auto;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1120px;
+  padding: 0 48px;
 `;
 
 export default DefaultLayout;

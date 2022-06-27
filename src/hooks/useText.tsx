@@ -1,6 +1,6 @@
 import { useSettings, LanguageName } from '../contexts/SettingsProvider';
 
-type MultiLangText = Partial<Record<LanguageName, string>>;
+export type MultiLangText = Record<LanguageName, string>;
 export type MultiLangTexts = Record<string, MultiLangText>;
 type CapitalizationType = 'upper' | 'upperfirst' | 'lower' | 'none';
 type GetTextOptions = {

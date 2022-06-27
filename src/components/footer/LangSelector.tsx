@@ -10,8 +10,8 @@ const LangSelector = () => {
   const t = useText({
     ...langTexts,
     language: {
-      ko: '언어/Language',
-      en: 'Language/언어',
+      ko: '언어',
+      en: 'Language',
     },
   });
 

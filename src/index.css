@@ -73,7 +73,7 @@ code {
   display: none; /* Webkit: Chrome, Safari, Opera */
 }
 
-a, a:hover {
+a {
   color: inherit;
   text-decoration: inherit;
 }

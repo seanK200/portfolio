@@ -38,6 +38,7 @@ const SettingsProvider = (props: PropTypes) => {
 
   const [headerHeight, setHeaderHeight] = useState<number>(0); // in px
 
+  // Detect OS preferred color scheme (light/dark mode)
   const getPreferredColorScheme = () => {
     if (window.matchMedia) {
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -47,8 +48,9 @@ const SettingsProvider = (props: PropTypes) => {
     return 'light';
   };
 
-  // Detect OS preferred color scheme (light/dark mode)
+  // componentDidMount
   useEffect(() => {
+    // Detect changes in OS preferred color scheme (light/dark mode)
     setPreferredTheme(getPreferredColorScheme());
     window
       .matchMedia('(prefers-color-scheme: dark)')
