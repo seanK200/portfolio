@@ -26,14 +26,15 @@ const ScrollGuide = ({ children }: { children: React.ReactNode }) => {
 };
 
 const SScrollGuide = styled.div`
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  text-align: center;
   color: ${({ theme }) => theme.color.primary.default};
+  word-break: keep-all;
   & span {
     margin-top: 12px;
     position: relative;

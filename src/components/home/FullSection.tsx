@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import breakpoints from '../../styles/breakpoints';
 
 const FullSection = styled.section<{ headerHeight?: number }>`
   position: relative;
@@ -6,7 +7,9 @@ const FullSection = styled.section<{ headerHeight?: number }>`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding-top: ${({ headerHeight }) => headerHeight || 0}px;
+  @media screen and (max-width: ${breakpoints.mobile}px) {
+    padding: 88px 0;
+  }
 `;
 
 export default FullSection;

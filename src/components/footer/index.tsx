@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import breakpoints from '../../styles/breakpoints';
 import LangSelector from './LangSelector';
 import ThemeSelector from './ThemeSelector';
 
@@ -43,10 +44,19 @@ const SFooter = styled.footer`
   & span.highlight {
     font-family: Righteous;
   }
+  @media screen and (max-width: ${breakpoints.mobile}px) {
+    flex-direction: column;
+  }
 `;
 
 const FooterSection = styled.section`
   position: relative;
+  @media screen and (max-width: ${breakpoints.mobile}px) {
+    margin-bottom: 24px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 `;
 
 export default Footer;

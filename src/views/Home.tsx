@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import FullSection from '../components/home/FullSection';
 import Asset from '../components/utilities/Asset';
+import HideMobile from '../components/utilities/HideMobile';
 import { useSettings } from '../contexts/SettingsProvider';
 import useText from '../hooks/useText';
+import breakpoints from '../styles/breakpoints';
 import ButtonWithIcon from '../styles/ButtonWithIcon';
 import SHighlight from '../styles/Highlight';
 import ScrollGuide from '../styles/ScrollGuide';
@@ -19,15 +21,8 @@ const HomeView = (): JSX.Element => {
   return (
     <React.Fragment>
       <Introduction>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            width: '100%',
-          }}
-        >
-          <div>
+        <IntroContents>
+          <div className="intro__contents">
             <h1>
               <span>{t('greeting1')}</span>
               <br />
@@ -40,11 +35,17 @@ const HomeView = (): JSX.Element => {
 
             <p>
               {t('introduction1')}
-              <br />
+              <HideMobile>
+                <br />
+              </HideMobile>
               {t('introduction2')}
-              <br />
+              <HideMobile>
+                <br />
+              </HideMobile>
               {t('introduction3')}
-              <br />
+              <HideMobile>
+                <br />
+              </HideMobile>
             </p>
             <ButtonContainer>
               <ResumeButton>
@@ -88,15 +89,13 @@ const HomeView = (): JSX.Element => {
               </LinkButton>
             </ButtonContainer>
           </div>
-          <div>
-            <MemojiContainer>
-              <img
-                src={process.env.PUBLIC_URL + '/images/memoji.png'}
-                alt="memoji"
-              />
-            </MemojiContainer>
-          </div>
-        </div>
+          <MemojiContainer>
+            <img
+              src={process.env.PUBLIC_URL + '/images/memoji.png'}
+              alt="memoji"
+            />
+          </MemojiContainer>
+        </IntroContents>
         <ScrollGuide>{t('scrollGuide1')}</ScrollGuide>
       </Introduction>
       <FullSection id="portfolio">Portfolio Overview</FullSection>
@@ -105,7 +104,20 @@ const HomeView = (): JSX.Element => {
 };
 
 const Introduction = styled(FullSection)`
-  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
+
+const IntroContents = styled.div`
+  position: relative;
+  width: 100%;
+
+  & > div.intro__contents {
+    display: flex;
+    flex-direction: column;
+  }
+
   & h1 {
     font-weight: 300;
     font-size: 2.5rem;
@@ -121,6 +133,33 @@ const Introduction = styled(FullSection)`
     line-height: 1.5;
     margin-bottom: 88px;
   }
+  @media screen and (max-width: ${breakpoints.mobile}px) {
+    & h1 {
+      font-size: 2rem;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    & p {
+      font-size: 1.125rem;
+      margin-bottom: 64px;
+    }
+    & > div.intro__contents {
+      opacity: 0;
+      animation-name: intro-reveal;
+      animation-duration: 0.5s;
+      animation-delay: 2s;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  @keyframes intro-reveal {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 const Highlight = styled(SHighlight)`
@@ -128,6 +167,9 @@ const Highlight = styled(SHighlight)`
 `;
 
 const MemojiContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 254px;
   height: 254px;
   border-radius: 50%;
@@ -138,6 +180,30 @@ const MemojiContainer = styled.div`
   align-items: center;
   & img {
     width: 50%;
+  }
+  z-index: -1;
+  @media screen and (max-width: ${breakpoints.mobile}px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: memoji-reveal;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes memoji-reveal {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(100%);
+    }
+    50% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(105%);
+    }
+    100% {
+      opacity: 0.1;
+      transform: translate(-50%, -50%) scale(100%);
+    }
   }
 `;
 
@@ -150,6 +216,16 @@ const ButtonContainer = styled.div`
   & button:last-child,
   & a:last-child {
     margin-right: 0;
+  }
+
+  @media screen and (max-width: ${breakpoints.mobile}px) {
+    flex-direction: column;
+    align-items: flex-start;
+    & button,
+    & a {
+      margin-right: 0;
+      margin-bottom: 24px;
+    }
   }
 `;
 

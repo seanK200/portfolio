@@ -152,6 +152,9 @@ const SHeader = styled.header<{
   align-items: center;
   background-color: ${({ theme }) => theme.color.background};
   transition: top 0.5s ease-out;
+  @media screen and (max-width: ${breakpoints.mobile}px) {
+    padding: 24px 36px;
+  }
 `;
 
 const Navigation = styled.nav<{ headerHeight: number; isNavOpen: boolean }>`
@@ -161,14 +164,9 @@ const Navigation = styled.nav<{ headerHeight: number; isNavOpen: boolean }>`
     width: 100%;
   }
   & li {
-    width: 100%;
     padding-left: 48px;
     font-weight: 500;
     color: ${({ theme }) => theme.textColor.default};
-  }
-  & a {
-    display: block;
-    width: 100%;
   }
   & a.active {
     color: ${({ theme }) => theme.color.primary.default};
@@ -179,20 +177,25 @@ const Navigation = styled.nav<{ headerHeight: number; isNavOpen: boolean }>`
     justify-content: space-between;
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
+    left: 100%;
+    right: -100%;
     bottom: 0;
     padding: ${({ headerHeight }) => headerHeight}px 48px;
     background-color: ${({ theme }) => theme.color.background};
     transition: transform 0.5s ease-in-out;
-    transform: translateX(${({ isNavOpen }) => (isNavOpen ? '0' : '100%')});
+    transform: translateX(${({ isNavOpen }) => (isNavOpen ? '-100%' : '0')});
     & ul {
       flex-direction: column;
     }
     & li {
+      width: 100%;
       padding-left: 0;
       margin-bottom: 32px;
       font-size: 1.25rem;
+    }
+    & a {
+      display: block;
+      width: 100%;
     }
   }
 `;

@@ -10,7 +10,8 @@ const HideMobile = (props: Props) => {
   const { windowSize } = useGlobals();
 
   // Only render children when not on mobile screens
-  if (windowSize.width > breakpoints.mobile) return props.children;
+  if (windowSize.width > breakpoints.mobile)
+    return props.children as React.ReactElement;
   return null;
 };
 

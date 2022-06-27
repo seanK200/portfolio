@@ -38,8 +38,8 @@ const homeTexts: MultiLangTexts = {
     en: 'Download resume',
   },
   scrollGuide1: {
-    ko: '제 포트폴리오를 보려면 스크롤하세요',
-    en: 'Scroll to take a look at my portfolio',
+    ko: '제 포트폴리오를 살펴보세요',
+    en: 'Check out my portfolio',
   },
 };
 
