@@ -15,7 +15,7 @@ const navTexts: MultiLangTexts = {
   },
   about: {
     ko: '연락하기',
-    en: 'About me',
+    en: 'Contact me',
   },
 };
 

@@ -67,6 +67,7 @@ const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
           height="25px"
           spriteX={1}
           spriteY={2}
+          hoverable={true}
         />
       </Link>
       <Navigation headerHeight={headerHeight} isNavOpen={isNavOpen}>

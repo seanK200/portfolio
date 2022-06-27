@@ -10,28 +10,20 @@ const homeTexts: MultiLangTexts = {
     en: 'I am a ',
   },
   greeting3: {
-    ko: '풀스택 웹 개발자',
-    en: 'full-stack web developer, ',
+    ko: '웹 개발자',
+    en: 'web developer, ',
   },
   greeting4: {
     ko: '김영우',
-    en: 'Youngwoo Kim',
+    en: 'Youngwoo Kim.',
   },
   greeting5: {
     ko: '입니다.',
-    en: '.',
+    en: '',
   },
-  introduction1: {
-    ko: '개인, 기업 소유의 웹 서비스를 ',
-    en: 'I have 3 years of experience in ',
-  },
-  introduction2: {
-    ko: '개발, 배포 및 관리한 3년 간의 실무 경험이 있는 ',
-    en: 'developing, deploying and managing web services for ',
-  },
-  introduction3: {
-    ko: '개발자입니다.',
-    en: 'individual and enterprise clients.',
+  introduction: {
+    ko: '저는 풀스택 프로젝트를 혼자 완성할 수 있는 끈기와 능력 뿐만이 아니라, 큰 규모의 팀 내에서 다양한 팀원들과 끝까지 함께 일할 수 있는 소통 능력과 책임감을 가진 사람입니다.',
+    en: 'I have not only the passion and experience to finish solo, full-stack projects, but also the responsibility and communication skills to stay productive within the largest and most diverse teams.',
   },
   resume: {
     ko: '이력서 다운로드',

@@ -20,6 +20,7 @@ type StyledPropTypes = {
   url: string;
   width: string;
   height: string;
+  spriteX: number;
   offsetX: string;
   offsetY: string;
   scale: string;
@@ -68,6 +69,7 @@ const Asset = (props: AssetPropTypes) => {
       url={process.env.PUBLIC_URL + '/assets/' + src}
       width={typeof width === 'number' ? `${width}px` : width}
       height={typeof height === 'number' ? `${height}px` : height}
+      spriteX={spriteX}
       offsetX={`calc(-1 * ${width} * ${offsetX})`}
       offsetY={`calc(-1 * ${height} * ${offsetY} ${
         useDarkTheme ? `- ${height}` : ''
@@ -93,8 +95,8 @@ const SAsset = styled.span<StyledPropTypes>`
 
   &.asset__span-hover,
   &:hover {
-    background-position-x: ${({ hoverable, offsetX, width }) =>
-      hoverable ? `calc(${offsetX} - ${width})` : offsetX};
+    background-position-x: ${({ hoverable, spriteX, offsetX, width }) =>
+      hoverable && spriteX > 1 ? `calc(${offsetX} - ${width})` : offsetX};
   }
 `;
 
