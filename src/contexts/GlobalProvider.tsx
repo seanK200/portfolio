@@ -17,6 +17,7 @@ type GlobalValues = {
   documentTitle: MultiLangText[];
   setDocumentTitle: React.Dispatch<React.SetStateAction<MultiLangText[]>>;
   windowSize: WindowSizeType;
+  preferredLanguages: string[];
 };
 
 const GlobalContext = React.createContext<GlobalValues | null>(null);
@@ -28,7 +29,6 @@ export const useGlobals = () => {
 };
 
 const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
-  const [preferredTheme, setPreferredTheme] = useState<ThemeName>('light');
   const [headerHeight, setHeaderHeight] = useState<number>(0); // in px
   const [scrollY, setScrollY] = useState<number>(0);
   const [isScrollingDown, setIsScrollingDown] = useState<boolean>(false);
@@ -41,7 +41,7 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
   });
 
   // Detect OS preferred color scheme (light/dark mode)
-  const getPreferredColorScheme = () => {
+  const getPreferredColorScheme = (): ThemeName => {
     if (window.matchMedia) {
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         return 'dark';
@@ -49,6 +49,27 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
     }
     return 'light';
   };
+
+  // Detect browser's preferred languages
+  const getPreferredLanguages = (): string[] => {
+    const langs: string[] = [];
+    if (navigator) {
+      if (navigator.languages) {
+        navigator.languages.forEach((lang) => langs.push(lang));
+      } else if (navigator.language) {
+        langs.push(navigator.language);
+      }
+    }
+    if (!langs.length) langs.push('en');
+    return langs;
+  };
+
+  const [preferredTheme, setPreferredTheme] = useState<ThemeName>(() =>
+    getPreferredColorScheme()
+  );
+  const [preferredLanguages] = useState<string[]>(() =>
+    getPreferredLanguages()
+  );
 
   const throttledScrollHandler = _.throttle(() => {
     setScrollY((prevScrollY) => {
@@ -71,7 +92,6 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
   // componentDidMount
   useEffect(() => {
     // Detect changes in OS preferred color scheme (light/dark mode)
-    setPreferredTheme(getPreferredColorScheme());
     window
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', () => {
@@ -99,6 +119,7 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
     documentTitle,
     setDocumentTitle,
     windowSize,
+    preferredLanguages,
   };
 
   return (

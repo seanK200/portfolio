@@ -11,7 +11,7 @@ type GetTextOptions = {
 const useText = (
   texts: MultiLangTexts,
   defaultString = '',
-  fallback: LanguageName = 'ko'
+  fallback: LanguageName = 'en'
 ) => {
   const { language } = useSettings();
 

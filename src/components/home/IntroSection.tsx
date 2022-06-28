@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Asset from '../utilities/Asset';
-import HideMobile from '../utilities/HideMobile';
 import FullSection from './FullSection';
 import SHighlight from '../../styles/Highlight';
 import styled from 'styled-components';
@@ -29,7 +28,7 @@ const IntroSection = () => {
       const { right } = introContentLeftRef.current.getBoundingClientRect();
       const { left } = memojiContainerRef.current.getBoundingClientRect();
 
-      setFadedMemoji(right > left + 8 && !isMobile);
+      setFadedMemoji(right > left + 16 && !isMobile);
     }
   }, [windowSize]);
 
@@ -47,20 +46,7 @@ const IntroSection = () => {
             <span>{t('greeting5')}</span>
           </h1>
 
-          <p>
-            {t('introduction1')}
-            <HideMobile>
-              <br />
-            </HideMobile>
-            {t('introduction2')}
-            <HideMobile>
-              <br />
-            </HideMobile>
-            {t('introduction3')}
-            <HideMobile>
-              <br />
-            </HideMobile>
-          </p>
+          <p>{t('introduction')}</p>
           <ButtonContainer>
             <ResumeButton>
               <Asset
@@ -138,7 +124,9 @@ const IntroContents = styled.div`
     font-size: 2.5rem;
     line-height: 1.4;
     margin-bottom: 24px;
+    max-width: 600px;
   }
+
   & h1 span.bold {
     font-weight: 600;
   }
@@ -147,7 +135,8 @@ const IntroContents = styled.div`
     font-weight: 300;
     font-size: 1.25rem;
     line-height: 1.5;
-    margin-bottom: 88px;
+    margin-bottom: 64px;
+    max-width: 472px;
   }
 
   @media screen and (max-width: ${breakpoints.mobile}px) {

@@ -25,7 +25,7 @@ export default function App() {
       if (elem) {
         window.scrollTo({
           top: elem.offsetTop,
-          behavior: 'smooth',
+          behavior: 'auto',
         });
       }
     }

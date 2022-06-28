@@ -6,7 +6,7 @@ import Selector from '../form/Selector';
 import SelectorItem from '../form/SelectorItem';
 
 const LangSelector = () => {
-  const { language, setLanguage } = useSettings();
+  const { language, setLanguage, setUsePreferredLanguage } = useSettings();
   const t = useText({
     ...langTexts,
     language: {
@@ -16,7 +16,10 @@ const LangSelector = () => {
   });
 
   const handleLangChange = (langValue: string) => {
-    if (langValue === 'ko' || langValue === 'en') setLanguage(langValue);
+    if (langValue === 'ko' || langValue === 'en') {
+      setLanguage(langValue);
+      setUsePreferredLanguage(false);
+    }
   };
 
   return (

@@ -11,15 +11,28 @@ type PropTypes = {
 export type ThemeName = 'light' | 'dark';
 export type LanguageName = 'ko' | 'en';
 
-// Context value
-type SettingValues = {
+// Settings
+interface Settings {
   theme: ThemeName;
-  setTheme: React.Dispatch<React.SetStateAction<ThemeName>>;
   language: LanguageName;
-  setLanguage: React.Dispatch<React.SetStateAction<LanguageName>>;
   usePreferredTheme: boolean;
-  setUsePreferredTheme: React.Dispatch<React.SetStateAction<boolean>>;
+  usePreferredLanguage: boolean;
+}
+
+const initialSettings: Settings = {
+  theme: 'light',
+  language: 'en',
+  usePreferredTheme: true,
+  usePreferredLanguage: true,
 };
+
+// Context value
+interface SettingValues extends Settings {
+  setTheme: (value: ThemeName) => void;
+  setLanguage: (value: LanguageName) => void;
+  setUsePreferredTheme: (value: boolean) => void;
+  setUsePreferredLanguage: (value: boolean) => void;
+}
 
 const SettingsContext = React.createContext<SettingValues | null>(null);
 
@@ -30,23 +43,53 @@ export const useSettings = () => {
 };
 
 const SettingsProvider = ({ children }: PropTypes) => {
-  const { preferredTheme } = useGlobals();
+  const { preferredTheme, preferredLanguages } = useGlobals();
 
-  // Themes
-  const [theme, setTheme] = useLocalStorage<ThemeName>(
-    'settings-theme',
-    'light'
-  );
-  const [usePreferredTheme, setUsePreferredTheme] = useLocalStorage<boolean>(
-    'settings-use-preferred-theme',
-    true
+  const [settings, setSettings] = useLocalStorage<Settings>(
+    'settings',
+    initialSettings
   );
 
-  // Language
-  const [language, setLanguage] = useLocalStorage<LanguageName>(
-    'settings-language',
-    'en'
-  );
+  const { theme, usePreferredTheme, language, usePreferredLanguage } = settings;
+
+  const setTheme = (value: ThemeName): void => {
+    setSettings((prev) => ({ ...prev, theme: value }));
+  };
+
+  const setUsePreferredTheme = (value: boolean): void => {
+    setSettings((prev) => ({ ...prev, usePreferredTheme: value }));
+  };
+
+  const setLanguage = (value: LanguageName): void => {
+    setSettings((prev) => ({ ...prev, language: value }));
+  };
+
+  const setUsePreferredLanguage = (value: boolean): void => {
+    setSettings((prev) => ({ ...prev, usePreferredLanguage: value }));
+  };
+
+  // Set the language to the browser's language
+  useEffect(() => {
+    if (usePreferredLanguage) {
+      let lang: LanguageName = 'en'; // fallback to English
+      for (let i = 0; i < preferredLanguages.length; i++) {
+        if (
+          preferredLanguages[i] === 'ko' ||
+          preferredLanguages[i] === 'ko-KR'
+        ) {
+          lang = 'ko';
+          break;
+        } else if (
+          preferredLanguages[i] === 'en' ||
+          preferredLanguages[i] === 'en-US'
+        ) {
+          lang = 'en';
+          break;
+        }
+      }
+      setLanguage(lang);
+    }
+  }, [preferredLanguages, usePreferredLanguage]);
 
   // Set the theme to OS preferred color scheme on change
   useEffect(() => {
@@ -55,6 +98,11 @@ const SettingsProvider = ({ children }: PropTypes) => {
     }
   }, [preferredTheme, usePreferredTheme]);
 
+  // Change the html tag's lang attribute to the correct language
+  useEffect(() => {
+    document.querySelector('html')?.setAttribute('lang', language);
+  }, [language]);
+
   const value: SettingValues = {
     theme,
     setTheme,
@@ -62,6 +110,8 @@ const SettingsProvider = ({ children }: PropTypes) => {
     setLanguage,
     usePreferredTheme,
     setUsePreferredTheme,
+    usePreferredLanguage,
+    setUsePreferredLanguage,
   };
   return (
     <SettingsContext.Provider value={value}>
