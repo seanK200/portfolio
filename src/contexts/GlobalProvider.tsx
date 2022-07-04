@@ -89,14 +89,16 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
     });
   }, 500);
 
+  const preferredColorSchemeChangeHandler = () => {
+    setPreferredTheme(getPreferredColorScheme());
+  };
+
   // componentDidMount
   useEffect(() => {
     // Detect changes in OS preferred color scheme (light/dark mode)
     window
       .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', () => {
-        setPreferredTheme(getPreferredColorScheme());
-      });
+      .addEventListener('change', preferredColorSchemeChangeHandler);
 
     // Scroll events
     setScrollY(window.scrollY);
@@ -108,6 +110,14 @@ const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
       height: window.innerHeight,
     });
     window.addEventListener('resize', throttledWindowResizeHandler);
+
+    return () => {
+      window.removeEventListener('scroll', throttledScrollHandler);
+      window.removeEventListener('resize', throttledWindowResizeHandler);
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .removeEventListener('change', preferredColorSchemeChangeHandler);
+    };
   }, []);
 
   const value: GlobalValues = {
