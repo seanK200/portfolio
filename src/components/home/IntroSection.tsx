@@ -46,7 +46,7 @@ const IntroSection = () => {
             <span>{t('greeting5')}</span>
           </h1>
 
-          <p>{t('introduction')}</p>
+          <p className="highlight">{t('introduction')}</p>
           <ButtonContainer>
             <ResumeButton>
               <Asset
@@ -131,10 +131,7 @@ const IntroContents = styled.div`
     font-weight: 600;
   }
 
-  & p {
-    font-weight: 300;
-    font-size: 1.25rem;
-    line-height: 1.5;
+  & p.highlight {
     margin-bottom: 64px;
     max-width: 472px;
   }

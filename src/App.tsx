@@ -5,18 +5,11 @@ import themes from './styles/theme';
 import { useSettings } from './contexts/SettingsProvider';
 import { useLocation } from 'react-router-dom';
 import DocumentTitle from './components/utilities/DocumentTitle';
+import GlobalStyles from './styles/GlobalStyles';
 
 export default function App() {
   const { theme } = useSettings();
   const location = useLocation();
-
-  // Set body background color according to theme
-  useEffect(() => {
-    if (theme) {
-      document.body.style.backgroundColor = themes[theme].color.background;
-      document.body.style.color = themes[theme].textColor.default;
-    }
-  }, [theme]);
 
   // Routing: Scroll to url fragment if location hash exists
   useEffect(() => {
@@ -33,6 +26,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={themes[theme]}>
+      <GlobalStyles />
       <DocumentTitle />
       <AppRouter />
     </ThemeProvider>

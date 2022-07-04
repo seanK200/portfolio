@@ -12,6 +12,7 @@ export interface ThemeInterface {
     primary: ThemeColor;
     secondary: ThemeColor;
     dangerous: ThemeColor;
+    gray: ThemeColor;
     background: string;
     hover: string;
   };
@@ -20,6 +21,7 @@ export interface ThemeInterface {
     primary: ThemeColor;
     secondary: ThemeColor;
     dangerous: ThemeColor;
+    gray: ThemeColor;
   };
 }
 
@@ -35,13 +37,17 @@ const lightTheme: ThemeInterface = {
       default: '#E8DEF9',
       pressed: '#E1D4F7',
       disabled: '#F6F2FD',
+      background: '#FFFFFF',
     },
     dangerous: {
       default: '#FF1049',
       pressed: '#FF4D62',
       disabled: '#FFD4DF',
     },
-    background: '#FFFFFF',
+    gray: {
+      default: '#EBEBEB',
+    },
+    background: '#FCFBFF',
     hover: '#E7DBFF',
   },
   textColor: {
@@ -61,6 +67,9 @@ const lightTheme: ThemeInterface = {
       pressed: '#FFFFFF',
       disabled: '#FFFFFF',
     },
+    gray: {
+      default: '#A6A6A6',
+    },
   },
 };
 
@@ -70,17 +79,21 @@ const darkTheme: ThemeInterface = {
       default: '#9462FF',
       pressed: '#7A3DFD',
       disabled: '#3E3059',
-      background: '#373144',
+      background: '#484059',
     },
     secondary: {
       default: '#E4E1E9',
       pressed: '#F7F1FF',
       disabled: '#4C435D',
+      background: '#231E2F',
     },
     dangerous: {
       default: '#FF1049',
       pressed: '#FF4D62',
       disabled: '#4C193C',
+    },
+    gray: {
+      default: '#505050',
     },
     background: '#0A021C',
     hover: '#463E56',
@@ -101,6 +114,9 @@ const darkTheme: ThemeInterface = {
       default: '#FFFFFF',
       pressed: '#FFFFFF',
       disabled: '#0A021C',
+    },
+    gray: {
+      default: '#999999',
     },
   },
 };

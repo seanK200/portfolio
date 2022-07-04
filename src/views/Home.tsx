@@ -1,13 +1,14 @@
 import React from 'react';
 import FullSection from '../components/home/FullSection';
 import IntroSection from '../components/home/IntroSection';
+import Container from '../styles/Container';
 
 const HomeView = (): JSX.Element => {
   return (
-    <React.Fragment>
+    <Container>
       <IntroSection />
       <FullSection id="portfolio">Portfolio Overview</FullSection>
-    </React.Fragment>
+    </Container>
   );
 };
 
