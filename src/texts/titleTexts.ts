@@ -17,6 +17,10 @@ const titleTexts: MultiLangTexts = {
     ko: '블로그',
     en: 'Blog',
   },
+  '/post': {
+    ko: '블로그',
+    en: 'Blog',
+  },
   '/about': {
     ko: '정보',
     en: 'About',

@@ -4,6 +4,7 @@ import DateTime from '../utilities/DateTime';
 import PostTags from './PostTags';
 import { PostInfo } from '../../typing/blog';
 import PostInsights from './PostInsights';
+import { useNavigate } from 'react-router-dom';
 
 type PostItemProps = {
   postInfo?: PostInfo;
@@ -11,6 +12,12 @@ type PostItemProps = {
 };
 
 const PostItem = ({ postInfo, showSkeleton }: PostItemProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (postInfo && postInfo.id) navigate(`/post/${postInfo.id}`);
+  };
+
   // For loading, return skeleton UI
   if (showSkeleton) {
     return (
@@ -35,12 +42,16 @@ const PostItem = ({ postInfo, showSkeleton }: PostItemProps) => {
 
   if (postInfo) {
     return (
-      <SPostItem>
+      <SPostItem onClick={handleClick}>
+        {postInfo.thumbnail && <Thumbnail src={postInfo.thumbnail} />}
         <PostInfoSection>
           <div>
             <PostTitle>{postInfo.title}</PostTitle>
             <PostTags tags={postInfo.tags} />
           </div>
+          {!postInfo.thumbnail && (
+            <TextPreview>{postInfo.content?.slice(0, 300)}</TextPreview>
+          )}
           <FlexContainer>
             <DateTime
               date={postInfo.createdAt}
@@ -81,10 +92,41 @@ const SPostItem = styled.li`
   }
 `;
 
-const ThumbnailSkeleton = styled.div`
+const ContentPreview = styled.div`
   border-radius: 8px 8px 0 0;
   height: 156px;
+`;
+
+const ThumbnailSkeleton = styled(ContentPreview)`
   background-color: ${({ theme }) => theme.color.gray.default};
+`;
+
+const Thumbnail = styled(ContentPreview)<{ src: string }>`
+  background-color: ${({ theme }) => theme.color.gray.default};
+  background-image: url(${({ src }) => src});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+`;
+
+const TextPreview = styled(ContentPreview)`
+  color: ${({ theme }) => theme.textColor.gray.default};
+  overflow: hidden;
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: #ffffff00;
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
 `;
 
 const FlexContainer = styled.div`

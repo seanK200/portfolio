@@ -210,7 +210,6 @@ const SPostFilter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 32px;
   margin-bottom: 64px;
 `;
 

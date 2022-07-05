@@ -162,6 +162,7 @@ const Container = styled(SContainer)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 0px;
 `;
 
 const Navigation = styled.nav<{ headerHeight: number; isNavOpen: boolean }>`

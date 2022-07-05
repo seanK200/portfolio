@@ -5,7 +5,7 @@ import Container from '../styles/Container';
 
 const HomeView = (): JSX.Element => {
   return (
-    <Container>
+    <Container style={{ paddingBottom: 0 }}>
       <IntroSection />
       <FullSection id="portfolio">Portfolio Overview</FullSection>
     </Container>

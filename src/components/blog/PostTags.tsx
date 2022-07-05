@@ -13,7 +13,6 @@ const PostTags = ({ tags, showSkeleton }: Props) => {
       <SPostTags className="no-scrollbar">
         <PostTagSkeleton>Loading</PostTagSkeleton>
         <PostTagSkeleton>Loading</PostTagSkeleton>
-        <PostTagSkeleton>Loading</PostTagSkeleton>
       </SPostTags>
     );
   }
@@ -26,10 +25,16 @@ const PostTags = ({ tags, showSkeleton }: Props) => {
 };
 
 const PostTag = styled.li`
-  margin-right: 8px;
-  padding: 4px 8px;
+  margin-right: 12px;
+  border-radius: 0.75rem;
+  padding: 4px 16px;
   display: inline-block;
   background-color: ${({ theme }) => theme.color.primary.background};
+  cursor: pointer;
+  &:hover {
+    color: ${({ theme }) => theme.textColor.primary.default};
+    background-color: ${({ theme }) => theme.color.primary.default};
+  }
 `;
 
 const PostTagSkeleton = styled(PostTag)`

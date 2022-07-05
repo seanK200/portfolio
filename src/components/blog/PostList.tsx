@@ -22,7 +22,11 @@ const PostList = ({ filters }: PostListProps) => {
 
   const t = useText(blogTexts);
 
-  const { isLoading, error, data: posts } = useQuery('posts', getBlogPosts);
+  const {
+    isLoading,
+    error,
+    data: posts,
+  } = useQuery('posts', getBlogPosts, { refetchOnWindowFocus: false });
 
   // Still fetching posts
   if (isLoading) {
