@@ -2,52 +2,62 @@ import { useSettings, LanguageName } from '../contexts/SettingsProvider';
 
 export type MultiLangText = Record<LanguageName, string>;
 export type MultiLangTexts = Record<string, MultiLangText>;
+
+type stringformatargs = { [key: string]: string | number };
+type stringformatter = (args: stringformatargs) => string;
+export type MultiLangTextDef = Record<LanguageName, string | stringformatter>;
+export type MultiLangTextsDef = Record<string, MultiLangTextDef>;
+
 type CapitalizationType = 'upper' | 'upperfirst' | 'lower' | 'none';
 type GetTextOptions = {
   caps?: CapitalizationType;
   lang?: LanguageName | null;
+  args?: stringformatargs;
 };
 
-const useText = (
-  texts: MultiLangTexts,
-  defaultString = '',
-  fallback: LanguageName = 'en'
-) => {
+const useText = (texts: MultiLangTextsDef) => {
   const { language } = useSettings();
 
-  const getText = (key: keyof MultiLangTexts, options: GetTextOptions = {}) => {
-    const { lang, caps } = options;
-    if (key in texts) {
-      let text: string | undefined = '';
-      if (lang) {
-        text = lang in texts[key] ? texts[key][lang] : texts[key][fallback];
-      } else {
-        text =
-          language in texts[key] ? texts[key][language] : texts[key][fallback];
-      }
-      if (text && caps !== 'none') {
-        switch (caps) {
-          case 'upper':
-            text = text.toUpperCase();
-            break;
-          case 'upperfirst':
-            text = text
-              .split(' ')
-              .map((word) => word[0].toUpperCase() + word.slice(1))
-              .join(' ');
-            break;
-          case 'lower':
-            text = text.toLowerCase();
-            break;
-        }
-      }
+  const getText = (
+    key: keyof MultiLangTextsDef,
+    options: GetTextOptions = {}
+  ): string => {
+    // Check if key exists
+    if (!(key in texts)) throw new Error(`Key '${key}' not found in text.`);
 
-      return text;
+    // Get the correct string
+    const { lang, caps } = options;
+    let text: string | stringformatter = '';
+    if (lang) {
+      text = lang in texts[key] ? texts[key][lang] : texts[key][language];
+    } else {
+      text = texts[key][language];
     }
 
-    if (defaultString !== '') return defaultString;
+    // If formatted text, run formatter with arguments
+    if (typeof text === 'function') {
+      if (options.args) text = text(options.args);
+    }
 
-    throw new Error(`Key '${key}' not found in text.`);
+    // Apply capitalization changes if needed
+    if (typeof text === 'string' && caps !== 'none') {
+      switch (caps) {
+        case 'upper':
+          text = text.toUpperCase();
+          break;
+        case 'upperfirst':
+          text = text
+            .split(' ')
+            .map((word) => word[0].toUpperCase() + word.slice(1))
+            .join(' ');
+          break;
+        case 'lower':
+          text = text.toLowerCase();
+          break;
+      }
+    }
+
+    return typeof text === 'string' ? text : '';
   };
 
   return getText;

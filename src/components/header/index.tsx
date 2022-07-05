@@ -6,6 +6,7 @@ import { useSettings } from '../../contexts/SettingsProvider';
 import useOverlay from '../../hooks/useOverlay';
 import useText from '../../hooks/useText';
 import breakpoints from '../../styles/breakpoints';
+import SContainer from '../../styles/Container';
 import Highlight from '../../styles/Highlight';
 import themes from '../../styles/theme';
 import navTexts from '../../texts/navTexts';
@@ -60,78 +61,80 @@ const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
       isScrollingDown={isScrollingDown}
       isNavOpen={isNavOpen}
     >
-      <Link to="/">
-        <Asset
-          src="logo.png"
-          width="20px"
-          height="25px"
-          spriteX={1}
-          spriteY={2}
-          hoverable={true}
-        />
-      </Link>
-      <Navigation headerHeight={headerHeight} isNavOpen={isNavOpen}>
-        <ul>
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? activeClassName : undefined
-              }
+      <Container>
+        <Link to="/">
+          <Asset
+            src="logo.png"
+            width="20px"
+            height="25px"
+            spriteX={1}
+            spriteY={2}
+            hoverable={true}
+          />
+        </Link>
+        <Navigation headerHeight={headerHeight} isNavOpen={isNavOpen}>
+          <ul>
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : undefined
+                }
+              >
+                {t('home')}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/portfolio"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : undefined
+                }
+              >
+                {t('portfolio')}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : undefined
+                }
+              >
+                {t('blog')}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : undefined
+                }
+              >
+                {t('about')}
+              </NavLink>
+            </li>
+          </ul>
+          <ShowMobile>
+            <Highlight
+              lang={language}
+              style={{
+                color: themes[theme].color.secondary.default,
+                fontSize: '1.25rem',
+              }}
             >
-              {t('home')}
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/portfolio"
-              className={({ isActive }) =>
-                isActive ? activeClassName : undefined
-              }
-            >
-              {t('portfolio')}
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/blog"
-              className={({ isActive }) =>
-                isActive ? activeClassName : undefined
-              }
-            >
-              {t('blog')}
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                isActive ? activeClassName : undefined
-              }
-            >
-              {t('about')}
-            </NavLink>
-          </li>
-        </ul>
+              Youngwoo Kim
+            </Highlight>
+          </ShowMobile>
+        </Navigation>
         <ShowMobile>
-          <Highlight
-            lang={language}
-            style={{
-              color: themes[theme].color.secondary.default,
-              fontSize: '1.25rem',
-            }}
-          >
-            Youngwoo Kim
-          </Highlight>
+          <Hamburger
+            pressed={isNavOpen}
+            onClick={handleNavOpenClick}
+            width="1.25rem"
+          />
         </ShowMobile>
-      </Navigation>
-      <ShowMobile>
-        <Hamburger
-          pressed={isNavOpen}
-          onClick={handleNavOpenClick}
-          width="1.25rem"
-        />
-      </ShowMobile>
+      </Container>
     </SHeader>
   );
 };
@@ -147,23 +150,18 @@ const SHeader = styled.header<{
   left: 0;
   right: 0;
   z-index: 1;
-  padding: 24px 48px;
+  padding: 24px 0;
+  background-color: ${({ theme }) => theme.color.background};
+  transition: top 0.5s ease-out;
+  box-shadow: 2px 2px 4px
+    ${({ isScrollingDown }) =>
+      window.scrollY < 20 || isScrollingDown ? '#00000000' : '#00000019'};
+`;
+
+const Container = styled(SContainer)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${({ theme }) => theme.color.background};
-  transition: top 0.5s ease-out;
-  @media screen and (max-width: ${breakpoints.mobile}px) {
-    padding: 24px 36px;
-  }
-  box-shadow: 2px 2px 4px
-    rgba(
-      0,
-      0,
-      0,
-      ${({ isScrollingDown }) =>
-        window.scrollY < 20 || isScrollingDown ? '0' : '0.25'}
-    );
 `;
 
 const Navigation = styled.nav<{ headerHeight: number; isNavOpen: boolean }>`
