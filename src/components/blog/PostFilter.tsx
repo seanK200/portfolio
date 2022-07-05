@@ -1,62 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { FunnelFill } from 'react-bootstrap-icons';
 import styled from 'styled-components';
-import { LanguageName } from '../../contexts/SettingsProvider';
 import useText from '../../hooks/useText';
 import Input from '../../styles/Input';
 import blogTexts from '../../texts/blogTexts';
 import Asset from '../utilities/Asset';
 import HideMobile from '../utilities/HideMobile';
-
-interface QueriablePostProperties {
-  postId: string;
-  title: string;
-  content?: string;
-  languages: LanguageName[];
-  tags?: string[];
-  author: string;
-}
-
-interface OtherPostProperties {
-  thumbnail?: string;
-}
-
-interface RangablePostProperties {
-  createdAt: Date;
-  updatedAt: Date;
-  viewCount: number;
-  likeCount: number;
-  commentCount: number;
-}
-
-export interface PostInfo
-  extends QueriablePostProperties,
-    RangablePostProperties,
-    OtherPostProperties {}
-
-interface PostFilterQuery {
-  property: keyof QueriablePostProperties;
-  query: string | string[];
-}
-
-interface PostFilterRange {
-  property: keyof RangablePostProperties;
-  start?: RangablePostProperties[keyof RangablePostProperties];
-  end?: RangablePostProperties[keyof RangablePostProperties];
-}
-
-type PostFilterMode = 'and' | 'or';
-
-export interface PostFilters {
-  queryAll: string; // look for search query in all fields
-  queries: PostFilterQuery[];
-  queryMode: PostFilterMode;
-  ranges: PostFilterRange[];
-  rangeMode: PostFilterMode;
-  sort: (keyof PostInfo)[];
-  limit: 50;
-  enabled: boolean;
-}
+import { PostFilters, PostInfo } from '../../typing/blog';
 
 export const defaultPostFilters: PostFilters = {
   queryAll: '',
@@ -180,21 +130,21 @@ export const getPostFilter = (filters: Partial<PostFilters>) => {
   };
 };
 
+// Color the filter icon if any filter is set
+export const checkFilterActive = (filters: Partial<PostFilters>): boolean => {
+  if (!filters.enabled) return false;
+
+  if (filters.queryAll) return true;
+  if (filters?.queries?.length) return true;
+  if (filters?.ranges?.length) return true;
+
+  return false;
+};
+
 const PostFilter = ({ filters, setFilters }: PostFilterProps) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isFilterActive, setIsFilterActive] = useState<boolean>(false);
   const [isSortActive, setIsSortActive] = useState<boolean>(false);
-
-  // Color the filter icon if any filter is set
-  const checkFilterActive = (): boolean => {
-    if (!filters.enabled) return false;
-
-    if (filters.queryAll) return true;
-    if (filters?.queries?.length) return true;
-    if (filters?.ranges?.length) return true;
-
-    return false;
-  };
 
   // Color the sort icon if any sorting option is set
   const checkSortActive = (): boolean => {
@@ -213,7 +163,7 @@ const PostFilter = ({ filters, setFilters }: PostFilterProps) => {
 
   // Color the icons if filter/sorting options are set
   useEffect(() => {
-    setIsFilterActive(checkFilterActive());
+    setIsFilterActive(checkFilterActive(filters));
     setIsSortActive(checkSortActive());
   }, [filters]);
 

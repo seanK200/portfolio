@@ -6,6 +6,10 @@ import { useSettings } from './contexts/SettingsProvider';
 import { useLocation } from 'react-router-dom';
 import DocumentTitle from './components/utilities/DocumentTitle';
 import GlobalStyles from './styles/GlobalStyles';
+import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
+const queryClient = new QueryClient();
 
 export default function App() {
   const { theme } = useSettings();
@@ -26,9 +30,12 @@ export default function App() {
 
   return (
     <ThemeProvider theme={themes[theme]}>
-      <GlobalStyles />
-      <DocumentTitle />
-      <AppRouter />
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyles />
+        <DocumentTitle />
+        <AppRouter />
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

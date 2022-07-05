@@ -1,80 +1,67 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
+  checkFilterActive,
   defaultPostFilters,
   getPostFilter,
-  PostFilters,
-  PostInfo,
 } from './PostFilter';
+import { PostFilters } from '../../typing/blog';
 import PostItem from './PostItem';
+import { useQuery } from 'react-query';
+import { getBlogPosts } from '../../api/blog/posts';
+import useText from '../../hooks/useText';
+import blogTexts from '../../texts/blogTexts';
 
 type PostListProps = {
   filters: Partial<PostFilters>;
 };
 
-// dummy data
-const posts: PostInfo[] = [
-  {
-    postId: 'q9283rh2pr',
-    title: 'Typescript Utility Types And Their Usage',
-    languages: ['ko', 'en'],
-    tags: ['typescript', 'ts'],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    author: 'Youngwoo',
-    viewCount: 123,
-    likeCount: 44,
-    commentCount: 0,
-  },
-  {
-    postId: 'xfgbp978',
-    title: '타입스크립트 유틸리티 타입으로 동적 타입 만들기',
-    languages: ['ko', 'en'],
-    tags: ['typescript', 'ts'],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    author: 'Youngwoo',
-    viewCount: 123,
-    likeCount: 44,
-    commentCount: 10,
-  },
-  {
-    postId: 'nsdp9au',
-    title: 'Typescript Utility Types',
-    languages: ['ko', 'en'],
-    tags: ['typescript', 'ts'],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    author: 'Youngwoo',
-    viewCount: 123,
-    likeCount: 44,
-    commentCount: 10,
-  },
-  {
-    postId: 'cbzhpvx89',
-    title: 'Typescript Utility Types',
-    languages: ['ko', 'en'],
-    tags: ['typescript', 'ts'],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    author: 'Youngwoo',
-    viewCount: 123,
-    likeCount: 44,
-    commentCount: 10,
-  },
-];
-
 const PostList = ({ filters }: PostListProps) => {
   // Use default values if not specified
   filters = { ...defaultPostFilters, ...filters };
+
+  const t = useText(blogTexts);
+
+  const { isLoading, error, data: posts } = useQuery('posts', getBlogPosts);
+
+  // Still fetching posts
+  if (isLoading) {
+    return (
+      <SPostList>
+        {Array(9)
+          .fill(0)
+          .map((_, idx) => (
+            <PostItem key={idx} showSkeleton />
+          ))}
+      </SPostList>
+    );
+  }
+
+  // Error while fetching posts
+  if (error) {
+    return (
+      <ErrorMessage className="highlight">{t('getPostsError')}</ErrorMessage>
+    );
+  }
+
+  // No posts
+  if (posts && posts.length === 0) {
+    return (
+      <p className="highlight">
+        {checkFilterActive(filters) ? t('noPostsAfterFilter') : t('noPosts')}
+      </p>
+    );
+  }
+
   return (
     <SPostList>
-      {posts
-        .slice(0, filters.limit)
-        .filter(getPostFilter(filters))
-        .map((postInfo) => {
-          return <PostItem key={postInfo.postId} postInfo={postInfo} />;
-        })}
+      {posts &&
+        posts
+          .slice(0, filters.limit)
+          .filter(getPostFilter(filters))
+          .map((postInfo) => {
+            return <PostItem key={postInfo.id} postInfo={postInfo} />;
+          })}
     </SPostList>
   );
 };
@@ -84,6 +71,10 @@ const SPostList = styled.ul`
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   column-gap: 32px;
   row-gap: 32px;
+`;
+
+const ErrorMessage = styled.p`
+  color: ${({ theme }) => theme.color.dangerous.default};
 `;
 
 export default PostList;

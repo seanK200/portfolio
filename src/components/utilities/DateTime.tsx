@@ -3,7 +3,7 @@ import useText from '../../hooks/useText';
 import dateTexts from '../../texts/dateTexts';
 
 type Props = {
-  date: Date;
+  date: Date | string;
   showDiffUntil?: 'justnow' | 'seconds' | 'minutes' | 'hours' | 'days';
   format?: 'date' | 'time' | 'datetime'; // predefined format in dateTexts
   formatter?: (d: Date) => string; // custom formatter function. overrides all
@@ -18,13 +18,16 @@ const DAY = HOUR * 24;
 const WEEK = DAY * 7;
 
 const DateTime = ({
-  date,
+  date: dateProp,
   showDiffUntil,
   format,
   formatter,
   style,
   className,
 }: Props) => {
+  const date: Date =
+    typeof dateProp === 'string' ? new Date(dateProp) : dateProp;
+
   const [formattedDate, setFormattedDate] = useState<string>('');
   const t = useText(dateTexts);
   const d = {

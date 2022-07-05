@@ -61,3 +61,5 @@ Temporary Items
 
 # Mock Data Files
 db.json
+
+.env
