@@ -7,6 +7,7 @@ import blogTexts from '../../texts/blogTexts';
 import Asset from '../utilities/Asset';
 import HideMobile from '../utilities/HideMobile';
 import { PostFilters, PostInfo } from '../../typing/blog';
+import useThrottledState from '../../hooks/useThrottledState';
 
 export const defaultPostFilters: PostFilters = {
   queryAll: '',
@@ -142,7 +143,9 @@ export const checkFilterActive = (filters: Partial<PostFilters>): boolean => {
 };
 
 const PostFilter = ({ filters, setFilters }: PostFilterProps) => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  // const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, tsearchQuery, setSearchQuery] =
+    useThrottledState<string>('');
   const [isFilterActive, setIsFilterActive] = useState<boolean>(false);
   const [isSortActive, setIsSortActive] = useState<boolean>(false);
 
@@ -157,9 +160,9 @@ const PostFilter = ({ filters, setFilters }: PostFilterProps) => {
   useEffect(() => {
     setFilters((prev) => ({
       ...prev,
-      queryAll: searchQuery,
+      queryAll: tsearchQuery,
     }));
-  }, [searchQuery]);
+  }, [tsearchQuery]);
 
   // Color the icons if filter/sorting options are set
   useEffect(() => {
