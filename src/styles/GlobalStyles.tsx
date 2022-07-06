@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
    h1 {
     font-size: 2.5rem;
     font-weight: 300;
-    margin-bottom: 3.5rem;
+    margin-bottom: 1.5rem;
    }
 
    p ~ h1 {
@@ -25,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
     font-size: 2rem;
     font-weight: 300;
     color: ${({ theme }) => theme.color.primary.default};
+    margin-bottom: 1.5rem;
    }
 
    p ~ h2 {

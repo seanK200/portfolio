@@ -35,6 +35,9 @@ const SPostInsights = styled.div`
     margin-left: 12px;
     margin-right: 4px;
   }
+  & svg:first-child {
+    margin-left: 0;
+  }
 `;
 
 export default PostInsights;

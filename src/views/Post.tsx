@@ -6,6 +6,7 @@ import { getBlogPost } from '../api/blog/posts';
 import PostInsights from '../components/blog/PostInsights';
 import DateTime from '../components/utilities/DateTime';
 import HeaderOffset from '../components/utilities/HeaderOffset';
+import useMarkdown from '../hooks/useMarkdown';
 import useText from '../hooks/useText';
 import breakpoints from '../styles/breakpoints';
 import Container from '../styles/Container';
@@ -18,8 +19,10 @@ const PostView = () => {
     isLoading,
     data: post,
     error,
+    isFetching,
   } = useQuery(['posts', postId], () => getBlogPost(postId));
   const t = useText(blogTexts);
+  const postHtml = useMarkdown(post?.content);
 
   if (isLoading) {
     return <p className="highlight">{t('postLoading')}</p>;
@@ -32,17 +35,29 @@ const PostView = () => {
     return (
       <Container>
         <HeaderOffset />
-        <h1>{post.title}</h1>
+        <PostTitle>{post.title}</PostTitle>
         <PostInfo>
           <PostInfoLeft>
             <PostAuthor>{post.author}</PostAuthor>
-            <DateTime date={post.createdAt} />
+            {isFetching ? (
+              <span>{t('postRefreshing')}</span>
+            ) : (
+              <DateTime
+                date={post.updatedAt}
+                textAfter={
+                  post.createdAt === post.updatedAt
+                    ? ` (${t('updated')})`
+                    : undefined
+                }
+              />
+            )}
           </PostInfoLeft>
           <PostInsights
             likeCount={post.likeCount}
             commentCount={post.commentCount}
           />
         </PostInfo>
+        <article dangerouslySetInnerHTML={{ __html: postHtml }}></article>
       </Container>
     );
   }
@@ -50,27 +65,44 @@ const PostView = () => {
   return null;
 };
 
+const PostTitle = styled.h1`
+  font-weight: 500;
+  color: ${({ theme }) => theme.color.primary.default};
+  margin-bottom: 0.75em;
+`;
+
 const PostInfo = styled.div`
+  margin-bottom: 3rem;
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray.default};
+  padding-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: ${({ theme }) => theme.textColor.gray.default};
+
+  @media screen and (max-width: ${breakpoints.tablet}px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const PostInfoLeft = styled.div`
   display: flex;
-  @media only screen and (max-width: ${breakpoints.mobile}) {
+  align-items: flex-start;
+  @media screen and (max-width: ${breakpoints.tablet}px) {
     flex-direction: column;
+    margin-bottom: 8px;
+    & span {
+      margin-bottom: 8px;
+    }
   }
 `;
 
 const PostAuthor = styled.span`
   display: inline-block;
-  margin-right: 24px;
   font-weight: 600;
-
-  @media only screen and (max-width: ${breakpoints.mobile}) {
-    margin-right: 0;
+  @media screen and (min-width: ${breakpoints.tablet}px) {
+    margin-right: 16px;
   }
 `;
 

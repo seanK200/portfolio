@@ -25,17 +25,21 @@ const blogTexts: MultiLangTextsDef = {
     ko: '게시글 내용 불러오는 중...',
     en: 'Loading post...',
   },
+  postRefreshing: {
+    ko: '새로고침 중...',
+    en: 'Refreshing...',
+  },
   postError: {
     ko: '오류가 발생하여 블로그 게시물 불러오기에 실패하였습니다.',
     en: 'Failed to load this blog post due to an error.',
   },
-  createdAt: {
-    ko: '최초 작성',
-    en: 'Created',
-  },
-  updatedAt: {
-    ko: '수정',
+  updated: {
+    ko: '수정됨',
     en: 'Updated',
+  },
+  author: {
+    ko: '작성자',
+    en: 'Author',
   },
 };
 
