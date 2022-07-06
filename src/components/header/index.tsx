@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { useGlobals } from '../../contexts/GlobalProvider';
 import { useSettings } from '../../contexts/SettingsProvider';
 import useOverlay from '../../hooks/useOverlay';

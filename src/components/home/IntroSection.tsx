@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Asset from '../utilities/Asset';
 import FullSection from './FullSection';
 import SHighlight from '../../styles/Highlight';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import useText from '../../hooks/useText';
 import { useSettings } from '../../contexts/SettingsProvider';
 import homeTexts from '../../texts/homeTexts';

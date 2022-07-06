@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSettings } from '../../contexts/SettingsProvider';
 import useText from '../../hooks/useText';
 import dateTexts from '../../texts/dateTexts';
 
@@ -7,6 +8,8 @@ type Props = {
   showDiffUntil?: 'justnow' | 'seconds' | 'minutes' | 'hours' | 'days';
   format?: 'date' | 'time' | 'datetime'; // predefined format in dateTexts
   formatter?: (d: Date) => string; // custom formatter function. overrides all
+  textBefore?: string;
+  textAfter?: string;
   style?: React.CSSProperties;
   className?: string;
 };
@@ -22,6 +25,8 @@ const DateTime = ({
   showDiffUntil,
   format,
   formatter,
+  textBefore,
+  textAfter,
   style,
   className,
 }: Props) => {
@@ -29,6 +34,7 @@ const DateTime = ({
     typeof dateProp === 'string' ? new Date(dateProp) : dateProp;
 
   const [formattedDate, setFormattedDate] = useState<string>('');
+  const { language } = useSettings();
   const t = useText(dateTexts);
   const d = {
     y: date.getFullYear(),
@@ -41,7 +47,10 @@ const DateTime = ({
 
   const getFullDate = (): string => {
     if (!date) return '';
-    return t('date', { args: { ...d } }) + ' ' + t('time', { args: { ...d } });
+    const dateText = t('date', { args: { ...d } });
+    const timeText = t('time', { args: { ...d } });
+    if (language === 'ko') return `${dateText} ${timeText}`;
+    return `${timeText} ${dateText}`;
   };
 
   const formatDate = (): string => {
@@ -92,7 +101,9 @@ const DateTime = ({
       style={style}
       className={`datetime__span${className ? ' ' + className : ''}`}
     >
+      {textBefore ? textBefore : null}
       {formattedDate}
+      {textAfter ? textAfter : null}
     </span>
   );
 };

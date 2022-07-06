@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const Divider = styled.hr<{ color?: string; margin?: string; border?: string }>`
   border-top: ${({ border, color, theme }) =>

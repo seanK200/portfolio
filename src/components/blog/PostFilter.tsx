@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FunnelFill } from 'react-bootstrap-icons';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import useText from '../../hooks/useText';
 import Input from '../../styles/Input';
 import blogTexts from '../../texts/blogTexts';

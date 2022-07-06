@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { useGlobals } from '../contexts/GlobalProvider';
 
 const DefaultLayout = () => {

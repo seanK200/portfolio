@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chat, Heart } from 'react-bootstrap-icons';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 type Props = {
   likeCount: number;
@@ -28,9 +28,8 @@ const PostInsights = ({ likeCount, commentCount }: Props) => {
 
 const SPostInsights = styled.div`
   color: ${({ theme }) => theme.textColor.gray.default};
-  font-size: 0.875rem;
   & svg {
-    font-size: 0.75rem;
+    font-size: 0.8em;
     position: relative;
     top: 2px;
     margin-left: 12px;

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import {
   checkFilterActive,
   defaultPostFilters,
@@ -11,6 +11,7 @@ import { useQuery } from 'react-query';
 import { getBlogPosts } from '../../api/blog/posts';
 import useText from '../../hooks/useText';
 import blogTexts from '../../texts/blogTexts';
+import ErrorMessage from '../../styles/ErrorMessage';
 
 type PostListProps = {
   filters: Partial<PostFilters>;
@@ -26,7 +27,7 @@ const PostList = ({ filters }: PostListProps) => {
     isLoading,
     error,
     data: posts,
-  } = useQuery('posts', getBlogPosts, { refetchOnWindowFocus: false });
+  } = useQuery(['posts'], getBlogPosts, { refetchOnWindowFocus: false });
 
   // Still fetching posts
   if (isLoading) {
@@ -75,10 +76,6 @@ const SPostList = styled.ul`
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   column-gap: 32px;
   row-gap: 32px;
-`;
-
-const ErrorMessage = styled.p`
-  color: ${({ theme }) => theme.color.dangerous.default};
 `;
 
 export default PostList;

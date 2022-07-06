@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import DateTime from '../utilities/DateTime';
 import PostTags from './PostTags';
 import { PostInfo } from '../../typing/blog';
@@ -52,7 +52,7 @@ const PostItem = ({ postInfo, showSkeleton }: PostItemProps) => {
           {!postInfo.thumbnail && (
             <TextPreview>{postInfo.content?.slice(0, 300)}</TextPreview>
           )}
-          <FlexContainer>
+          <BottomSection>
             <DateTime
               date={postInfo.createdAt}
               showDiffUntil="hours"
@@ -62,7 +62,7 @@ const PostItem = ({ postInfo, showSkeleton }: PostItemProps) => {
               likeCount={postInfo.likeCount}
               commentCount={postInfo.commentCount}
             />
-          </FlexContainer>
+          </BottomSection>
         </PostInfoSection>
       </SPostItem>
     );
@@ -139,6 +139,10 @@ const PostInfoSection = styled(FlexContainer)`
   padding: 1.25rem;
   flex-direction: column;
   flex-grow: 1;
+`;
+
+const BottomSection = styled(FlexContainer)`
+  font-size: 0.875rem;
 `;
 
 const PostTitle = styled.span`

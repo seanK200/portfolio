@@ -10,7 +10,7 @@ const BlogView = (): JSX.Element => {
 
   return (
     <Container>
-      <HeaderOffset marginBottom="32px" />
+      <HeaderOffset />
       <PostFilter filters={postFilters} setFilters={setPostFilters} />
       <PostList filters={postFilters} />
     </Container>

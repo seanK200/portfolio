@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import breakpoints from '../../styles/breakpoints';
 
 const FullSection = styled.section<{ headerHeight?: number }>`

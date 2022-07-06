@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import breakpoints from '../../styles/breakpoints';
 import LangSelector from './LangSelector';
 import ThemeSelector from './ThemeSelector';

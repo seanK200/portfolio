@@ -8,7 +8,7 @@ type HeaderOffsetProps = {
   marginBottom?: string; // additional margin bottom, if needed
 };
 
-const HeaderOffset = ({ marginBottom = '1rem' }: HeaderOffsetProps) => {
+const HeaderOffset = ({ marginBottom = '2rem' }: HeaderOffsetProps) => {
   const { headerHeight } = useGlobals();
   const headerOffsetStyle: React.CSSProperties = {
     height: `${headerHeight}px`,

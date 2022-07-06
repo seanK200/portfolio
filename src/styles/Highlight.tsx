@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { LanguageName } from '../contexts/SettingsProvider';
 
 const Highlight = styled.span<{ lang: LanguageName }>`
