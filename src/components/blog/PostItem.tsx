@@ -14,7 +14,7 @@ type PostItemProps = {
 
 const PostItem = ({ postInfo, showSkeleton }: PostItemProps) => {
   const navigate = useNavigate();
-  const parsemd = useMarkdown();
+  const parsemd = useMarkdown({ textContent: true });
 
   const handleClick = () => {
     if (postInfo && postInfo.id) navigate(`/post/${postInfo.id}`);

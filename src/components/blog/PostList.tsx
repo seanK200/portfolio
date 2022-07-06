@@ -56,18 +56,21 @@ const PostList = ({ filters }: PostListProps) => {
       </p>
     );
   }
+  if (posts) {
+    return (
+      <SPostList>
+        {posts &&
+          posts
+            .slice(0, filters.limit)
+            .filter(getPostFilter(filters))
+            .map((postInfo) => {
+              return <PostItem key={postInfo.id} postInfo={postInfo} />;
+            })}
+      </SPostList>
+    );
+  }
 
-  return (
-    <SPostList>
-      {posts &&
-        posts
-          .slice(0, filters.limit)
-          .filter(getPostFilter(filters))
-          .map((postInfo) => {
-            return <PostItem key={postInfo.id} postInfo={postInfo} />;
-          })}
-    </SPostList>
-  );
+  return null;
 };
 
 const SPostList = styled.ul`
