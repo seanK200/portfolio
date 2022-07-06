@@ -124,11 +124,11 @@ const TextPreview = styled(ContentPreview)`
     left: 0;
     right: 0;
     height: 20px;
-    background: #ffffff00;
+    background: none;
     background: linear-gradient(
       0deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0) 100%
+      ${({ theme }) => theme.color.secondary.background}FF 0%,
+      ${({ theme }) => theme.color.secondary.background}00 100%
     );
   }
 `;
