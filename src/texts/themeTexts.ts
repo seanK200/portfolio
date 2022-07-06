@@ -13,6 +13,10 @@ const themeTexts: MultiLangTexts = {
     ko: '자동',
     en: 'Auto',
   },
+  theme: {
+    ko: '테마',
+    en: 'Theme',
+  },
 };
 
 export default themeTexts;

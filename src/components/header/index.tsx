@@ -9,7 +9,9 @@ import breakpoints from '../../styles/breakpoints';
 import SContainer from '../../styles/Container';
 import Highlight from '../../styles/Highlight';
 import themes from '../../styles/theme';
+import langTexts from '../../texts/langTexts';
 import navTexts from '../../texts/navTexts';
+import themeTexts from '../../texts/themeTexts';
 import Hamburger from '../Hamburger';
 import Asset from '../utilities/Asset';
 import ShowMobile from '../utilities/ShowMobile';
@@ -20,11 +22,21 @@ type PropTypes = {
 
 const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
   const { headerHeight, isScrollingDown, windowSize } = useGlobals();
-  const { theme, language } = useSettings();
+  const { theme, setTheme, language, setLanguage } = useSettings();
   const headerRef = useRef<HTMLElement>(null);
-  const t = useText(navTexts);
+  const t = useText({ ...navTexts, ...themeTexts, ...langTexts });
   const activeClassName = 'active';
   const location = useLocation();
+
+  // Theme toggle button
+  const handleThemeClick = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
+  // Language toggle button
+  const handleLanguageClick = () => {
+    setLanguage(language === 'ko' ? 'en' : 'ko');
+  };
 
   // Mobile
   const isMobile = windowSize.width <= breakpoints.mobile;
@@ -114,6 +126,34 @@ const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
                 {t('about')}
               </NavLink>
             </li>
+            <ShowMobile>
+              <hr />
+            </ShowMobile>
+            <li onClick={handleThemeClick} className="header__menu">
+              <Asset
+                src="themes.png"
+                width="1em"
+                height="1em"
+                spriteX={10}
+                spriteY={10}
+                offsetX={theme === 'light' ? 3 : 8}
+              />
+              <span className="header__menulabel">
+                {t(theme)}
+                <ShowMobile>{' ' + t('theme', { caps: 'lower' })}</ShowMobile>
+              </span>
+            </li>
+            <li onClick={handleLanguageClick} className="header__menu">
+              <Asset
+                src="flags.png"
+                width="1.125em"
+                height="1.125em"
+                spriteX={2}
+                spriteY={1}
+                offsetX={language === 'ko' ? 0 : 1}
+              />
+              <span className="header__menulabel">{t(language)}</span>
+            </li>
           </ul>
           <ShowMobile>
             <Highlight
@@ -169,15 +209,52 @@ const Navigation = styled.nav<{ headerHeight: number; isNavOpen: boolean }>`
   display: flex;
   & ul {
     display: flex;
+    align-items: center;
     width: 100%;
   }
   & li {
-    padding-left: 48px;
+    margin-left: 48px;
     font-weight: 500;
     color: ${({ theme }) => theme.textColor.default};
   }
+  & li.header__menu {
+    margin-left: 36px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  & li span.asset__span {
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+  }
+  & li.header__menu span.header__menulabel {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 0px;
+    padding-left: 8px;
+    transition: max-width 0.25s linear;
+    word-break: keep-all;
+  }
+  & li.header__menu:hover span.header__menulabel {
+    max-width: 6ch;
+  }
   & a.active {
     color: ${({ theme }) => theme.color.primary.default};
+  }
+  & hr {
+    display: block;
+    width: 100%;
+    border-width: 0.5px;
+    border-color: ${({ theme }) => theme.color.gray.default};
+    margin: 0 0 32px 0;
+  }
+
+  @media screen and ((max-width: ${breakpoints.tablet}px) and (min-width: ${breakpoints.mobile}px)) {
+    & li.header__menu {
+      display: none;
+    }
   }
 
   @media screen and (max-width: ${breakpoints.mobile}px) {
@@ -200,6 +277,17 @@ const Navigation = styled.nav<{ headerHeight: number; isNavOpen: boolean }>`
       padding-left: 0;
       margin-bottom: 32px;
       font-size: 1.25rem;
+    }
+    & li span.asset__span {
+      margin-right: 8px;
+    }
+    & li.header__menu {
+      border-radius: 0;
+      padding: 0 0;
+      background: none;
+    }
+    & li.header__menu span.header__menulabel {
+      max-width: unset;
     }
     & a {
       display: block;

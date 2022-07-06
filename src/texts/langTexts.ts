@@ -1,11 +1,11 @@
 import { MultiLangTexts } from '../hooks/useText';
 
 const langTexts: MultiLangTexts = {
-  Korean: {
+  ko: {
     ko: '한국어',
     en: 'Korean',
   },
-  English: {
+  en: {
     ko: '영어',
     en: 'English',
   },

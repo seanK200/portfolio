@@ -14,6 +14,7 @@ export type AssetPropTypes = {
   hoverable?: boolean;
   hover?: boolean; // emulate a hovered state even when it is not hovered
   onClick?: React.MouseEventHandler<HTMLSpanElement>;
+  style?: React.CSSProperties;
 };
 
 type StyledPropTypes = {
@@ -52,6 +53,7 @@ const Asset = (props: AssetPropTypes) => {
     hoverable = defaultAssetProps.hoverable,
     hover = defaultAssetProps.hover,
     onClick: handleClick,
+    style,
   } = props;
 
   const useDarkTheme = themed && spriteY > 1 && theme === 'dark';
@@ -78,6 +80,7 @@ const Asset = (props: AssetPropTypes) => {
       hoverable={hoverable}
       className={getClassName()}
       onClick={handleClick}
+      style={style}
     ></SAsset>
   );
 };

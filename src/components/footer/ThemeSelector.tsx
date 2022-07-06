@@ -7,13 +7,7 @@ import SelectorItem from '../form/SelectorItem';
 
 const ThemeSelector = () => {
   const { theme, setTheme, setUsePreferredTheme } = useSettings();
-  const t = useText({
-    ...themeTexts,
-    theme: {
-      ko: '테마',
-      en: 'Theme',
-    },
-  });
+  const t = useText(themeTexts);
 
   const handleThemeChange = (themeValue: string) => {
     setUsePreferredTheme(false);
