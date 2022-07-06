@@ -22,7 +22,7 @@ const PostView = () => {
     isFetching,
   } = useQuery(['posts', postId], () => getBlogPost(postId));
   const t = useText(blogTexts);
-  const postHtml = useMarkdown(post?.content);
+  const parsemd = useMarkdown();
 
   if (isLoading) {
     return <p className="highlight">{t('postLoading')}</p>;
@@ -31,6 +31,7 @@ const PostView = () => {
   if (error) {
     return <ErrorMessage className="highlight"> {t('postError')}</ErrorMessage>;
   }
+
   if (post) {
     return (
       <Container>
@@ -57,7 +58,9 @@ const PostView = () => {
             commentCount={post.commentCount}
           />
         </PostInfo>
-        <article dangerouslySetInnerHTML={{ __html: postHtml }}></article>
+        <article
+          dangerouslySetInnerHTML={{ __html: parsemd(post?.content) }}
+        ></article>
       </Container>
     );
   }

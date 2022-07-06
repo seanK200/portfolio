@@ -5,6 +5,7 @@ import PostTags from './PostTags';
 import { PostInfo } from '../../typing/blog';
 import PostInsights from './PostInsights';
 import { useNavigate } from 'react-router-dom';
+import useMarkdown from '../../hooks/useMarkdown';
 
 type PostItemProps = {
   postInfo?: PostInfo;
@@ -13,6 +14,7 @@ type PostItemProps = {
 
 const PostItem = ({ postInfo, showSkeleton }: PostItemProps) => {
   const navigate = useNavigate();
+  const parsemd = useMarkdown();
 
   const handleClick = () => {
     if (postInfo && postInfo.id) navigate(`/post/${postInfo.id}`);
@@ -50,7 +52,9 @@ const PostItem = ({ postInfo, showSkeleton }: PostItemProps) => {
             <PostTags tags={postInfo.tags} />
           </div>
           {!postInfo.thumbnail && (
-            <TextPreview>{postInfo.content?.slice(0, 300)}</TextPreview>
+            <TextPreview>
+              {parsemd(postInfo?.content).slice(0, 300)}
+            </TextPreview>
           )}
           <BottomSection>
             <DateTime

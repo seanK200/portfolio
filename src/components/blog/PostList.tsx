@@ -22,7 +22,6 @@ const PostList = ({ filters }: PostListProps) => {
   filters = { ...defaultPostFilters, ...filters };
 
   const t = useText(blogTexts);
-
   const {
     isLoading,
     error,
