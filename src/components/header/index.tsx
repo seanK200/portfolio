@@ -233,12 +233,12 @@ const Navigation = styled.nav<{ headerHeight: number; isNavOpen: boolean }>`
     display: inline-block;
     overflow: hidden;
     max-width: 0px;
-    padding-left: 8px;
-    transition: max-width 0.25s linear;
+    transition: max-width 0.25s linear, padding-left 0.25s linear;
     word-break: keep-all;
   }
   & li.header__menu:hover span.header__menulabel {
     max-width: 6ch;
+    padding-left: 8px;
   }
   & a.active {
     color: ${({ theme }) => theme.color.primary.default};
