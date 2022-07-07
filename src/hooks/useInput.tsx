@@ -25,8 +25,11 @@ interface InputMessages {
 }
 
 export interface InputControl<T, E> {
+  value: T | undefined;
   setValue: React.Dispatch<React.SetStateAction<T | undefined>>;
   displayValue: string | T | undefined;
+  isValid: boolean;
+  doValidate: boolean;
   message: string | undefined;
   validate: () => boolean;
   sanitize: () => void;
@@ -130,9 +133,9 @@ const useInput = <T, E>({
   range?: number | [number, number];
   validator?: (value: T | undefined) => keyof InputMessages;
   sanitizor?: (value: T | undefined) => T;
-  onFocus: React.FocusEventHandler<E>;
-  onBlur: React.FocusEventHandler<E>;
-}) => {
+  onFocus?: React.FocusEventHandler<E>;
+  onBlur?: React.FocusEventHandler<E>;
+} = {}): [T | undefined, boolean, InputControl<T, E>] => {
   messages = { ...defaultMessages, ...messages };
 
   const { language } = useSettings();
@@ -195,7 +198,9 @@ const useInput = <T, E>({
       setMessage(message[language]);
     }
 
-    return messageKey === 'valid';
+    const isValid = messageKey === 'valid';
+    setIsValid(isValid);
+    return isValid;
   };
 
   const resetInput = () => {
@@ -210,7 +215,10 @@ const useInput = <T, E>({
   };
 
   const handleInputBlur = (e: React.FocusEvent<E>) => {
-    if (!doValidate) setDoValidate(true);
+    if (!doValidate) {
+      setDoValidate(true);
+      validate();
+    }
     typeof onBlur === 'function' && onBlur(e);
   };
 
@@ -232,7 +240,7 @@ const useInput = <T, E>({
     handleInputBlur,
   };
 
-  return [value, isValid, inputControl];
+  return [value, doValidate ? isValid : true, inputControl];
 };
 
 export default useInput;
