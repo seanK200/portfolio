@@ -14,6 +14,7 @@ import navTexts from '../../texts/navTexts';
 import themeTexts from '../../texts/themeTexts';
 import Hamburger from '../Hamburger';
 import Asset from '../utilities/Asset';
+import HideMobile from '../utilities/HideMobile';
 import ShowMobile from '../utilities/ShowMobile';
 
 type PropTypes = {
@@ -129,31 +130,33 @@ const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
             <ShowMobile>
               <hr />
             </ShowMobile>
-            <li onClick={handleThemeClick} className="header__menu">
-              <Asset
-                src="themes.png"
-                width="1em"
-                height="1em"
-                spriteX={10}
-                spriteY={10}
-                offsetX={theme === 'light' ? 3 : 8}
-              />
-              <span className="header__menulabel">
-                {t(theme)}
-                <ShowMobile>{' ' + t('theme', { caps: 'lower' })}</ShowMobile>
-              </span>
-            </li>
-            <li onClick={handleLanguageClick} className="header__menu">
-              <Asset
-                src="flags.png"
-                width="1.125em"
-                height="1.125em"
-                spriteX={2}
-                spriteY={1}
-                offsetX={language === 'ko' ? 0 : 1}
-              />
-              <span className="header__menulabel">{t(language)}</span>
-            </li>
+            <HideMobile breakpoint="tablet">
+              <li onClick={handleThemeClick} className="header__menu">
+                <Asset
+                  src="themes.png"
+                  width="1em"
+                  height="1em"
+                  spriteX={10}
+                  spriteY={10}
+                  offsetX={theme === 'light' ? 3 : 8}
+                />
+                <span className="header__menulabel">
+                  {t(theme)}
+                  <ShowMobile>{' ' + t('theme', { caps: 'lower' })}</ShowMobile>
+                </span>
+              </li>
+              <li onClick={handleLanguageClick} className="header__menu">
+                <Asset
+                  src="flags.png"
+                  width="1.125em"
+                  height="1.125em"
+                  spriteX={2}
+                  spriteY={1}
+                  offsetX={language === 'ko' ? 0 : 1}
+                />
+                <span className="header__menulabel">{t(language)}</span>
+              </li>
+            </HideMobile>
           </ul>
           <ShowMobile>
             <Highlight
