@@ -52,7 +52,7 @@ const Header = ({ setHeaderHeight }: PropTypes): JSX.Element => {
       const { height } = headerRef.current.getBoundingClientRect();
       setHeaderHeight(height);
     }
-  }, []);
+  });
 
   // Mobile: Prevent body scroll when Nav is open
   useOverlay(isMobile && isNavOpen);
