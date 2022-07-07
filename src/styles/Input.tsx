@@ -33,6 +33,10 @@ const SInput = styled.input`
     border-color: ${({ theme }) => theme.color.primary.default};
     background-color: ${({ theme }) => theme.color.primary.background};
   }
+  &:invalid {
+    border-color: ${({ theme }) => theme.color.dangerous.default};
+    outline-color: ${({ theme }) => theme.color.dangerous.default};
+  }
 `;
 
 export default Input;

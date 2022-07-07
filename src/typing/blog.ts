@@ -1,7 +1,21 @@
 import { LanguageName } from '../contexts/SettingsProvider';
 
+export type PostId = string;
+export type CommentId = number;
+
+export interface PostCommentInterface {
+  id: CommentId;
+  content: string;
+  authorName: string;
+  authorEmail: string;
+  authorIp: string;
+  createdAt: Date;
+  postId: PostId;
+  parentComment?: CommentId;
+}
+
 interface QueriablePostProperties {
-  id: string;
+  id: PostId;
   title: string;
   content?: string;
   languages: LanguageName[];
@@ -11,6 +25,7 @@ interface QueriablePostProperties {
 
 interface OtherPostProperties {
   thumbnail?: string;
+  comments?: PostCommentInterface[];
 }
 
 interface RangablePostProperties {

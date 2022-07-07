@@ -79,7 +79,7 @@ const GlobalStyles = createGlobalStyle`
     margin-bottom: 0.75rem;
    }
 
-   p.highlight {
+   .highlight {
     font-size: 1.25rem;
     font-weight: 300;
    }

@@ -217,6 +217,7 @@ const ButtonContainer = styled.div`
   display: flex;
   & button,
   & a {
+    border: none;
     margin-right: 32px;
   }
   & button:last-child,

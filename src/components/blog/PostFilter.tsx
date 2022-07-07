@@ -143,7 +143,6 @@ export const checkFilterActive = (filters: Partial<PostFilters>): boolean => {
 };
 
 const PostFilter = ({ filters, setFilters }: PostFilterProps) => {
-  // const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchQuery, tsearchQuery, setSearchQuery] =
     useThrottledState<string>('');
   const [isFilterActive, setIsFilterActive] = useState<boolean>(false);

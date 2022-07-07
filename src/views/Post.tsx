@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { getBlogPost } from '../api/blog/posts';
+import PostComments from '../components/blog/PostComments';
 import PostInsights from '../components/blog/PostInsights';
 import DateTime from '../components/utilities/DateTime';
 import HeaderOffset from '../components/utilities/HeaderOffset';
@@ -58,9 +59,10 @@ const PostView = () => {
             commentCount={post.commentCount}
           />
         </PostInfo>
-        <article
+        <PostContents
           dangerouslySetInnerHTML={{ __html: parsemd(post?.content) }}
-        ></article>
+        ></PostContents>
+        <PostComments comments={post.comments} />
       </Container>
     );
   }
@@ -77,7 +79,7 @@ const PostTitle = styled.h1`
 const PostInfo = styled.div`
   margin-bottom: 3rem;
   border-bottom: 1px solid ${({ theme }) => theme.color.gray.default};
-  padding-bottom: 1rem;
+  padding-bottom: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -107,6 +109,12 @@ const PostAuthor = styled.span`
   @media screen and (min-width: ${breakpoints.tablet}px) {
     margin-right: 16px;
   }
+`;
+
+const PostContents = styled.article`
+  padding-bottom: 3rem;
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray.default};
+  margin-bottom: 3rem;
 `;
 
 export default PostView;

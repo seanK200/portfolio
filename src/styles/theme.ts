@@ -43,6 +43,7 @@ const lightTheme: ThemeInterface = {
       default: '#FF1049',
       pressed: '#FF4D62',
       disabled: '#FFD4DF',
+      background: '#FFEFF3',
     },
     gray: {
       default: '#EBEBEB',
@@ -91,9 +92,10 @@ const darkTheme: ThemeInterface = {
       default: '#FF1049',
       pressed: '#FF4D62',
       disabled: '#4C193C',
+      background: '#594046',
     },
     gray: {
-      default: '#505050',
+      default: '#2B2734',
     },
     background: '#0A021C',
     hover: '#463E56',
@@ -116,7 +118,7 @@ const darkTheme: ThemeInterface = {
       disabled: '#0A021C',
     },
     gray: {
-      default: '#999999',
+      default: '#716D79',
     },
   },
 };

@@ -41,6 +41,26 @@ const blogTexts: MultiLangTextsDef = {
     ko: '작성자',
     en: 'Author',
   },
+  comments: {
+    ko: '댓글',
+    en: 'Comments',
+  },
+  commentPlaceholder: {
+    ko: '새 댓글 내용 입력',
+    en: 'Enter new comment',
+  },
+  commentSubmit: {
+    ko: '댓글 달기',
+    en: 'Post',
+  },
+  commentCancel: {
+    ko: '취소',
+    en: 'Cancel',
+  },
+  commentLengthUnit: {
+    ko: '자',
+    en: 'chars',
+  },
 };
 
 export default blogTexts;
